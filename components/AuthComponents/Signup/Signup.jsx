@@ -2,16 +2,22 @@ import React, { useState } from 'react';
 import Checkbox from 'expo-checkbox';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView } from "react-native";
 import { styles } from './SignupStyleSheets'
-import { router } from 'expo-router';
+import { router, useRouter } from 'expo-router';
 import { registerUser } from '../../../axios/userAuth'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PasswordStrengthChecker from './PasswordStrengthChecker'
 import Toast from 'react-native-toast-message'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux'
+import { addUserData } from '@/redux_store/UserDataSlicer';
+import Spinner from '@/constants/Spinner/Spinner';
 
 export default function Signup() {
 
   const [checked, isChecked] = useState(false)
+  const [isSpinnerOpen, setSpinnerOpen] = useState(false)
+  const dispatch = useDispatch()
+  const router = useRouter()
 
   // useState For user Authentication
   const [name, setName] = useState("")
@@ -37,7 +43,6 @@ export default function Signup() {
     if (
       data.name.length === 0 ||
       data.email.length === 0 ||
-      data.contact.length !== 10 ||
       data.password.length === 0 ||
       data.password_confirmation.length === 0
     ) {
@@ -45,6 +50,15 @@ export default function Signup() {
         type: "error",
         text1: "Invalid Input",
         text2: "Please fill all required fields.",
+      });
+      return true;
+    }
+    
+    if(data.contact.length !== 10){
+      Toast.show({
+        type: "error",
+        text1: "Invalid Phone Number",
+        text2: "Phone Number should be of 10 digit",
       });
       return true;
     }
@@ -70,24 +84,47 @@ export default function Signup() {
     return false;
   }
   async function handleRegisterUser() {
-    const data = {
-      name,
-      contact,
-      email,
-      password,
-      password_confirmation : confirmPassword
-    }
+    try {
+      const data = {
+        name,
+        contact,
+        email,
+        password,
+        password_confirmation : confirmPassword
+      }
+  
+      if (checkUserData(data)) return
+      setSpinnerOpen(true)
 
-    if (checkUserData(data)) return
-    console.log(data)
-    const response = await registerUser(data)
-    console.log(response?.data?.user)
+      const response = await registerUser(data)
+
+      if(response?.data?.status){
+        await AsyncStorage.setItem('token' , response?.data?.token)
+        dispatch(addUserData(response?.data?.user))
+        setSpinnerOpen(false)
+        router.replace('/(tabs)/')
+      }
+      else
+        setSpinnerOpen(false)
+
+    } catch (error) {
+      setSpinnerOpen(false)
+      Toast.show({
+        type: "error",
+        text1: "Internal Server Error",
+        text2: error?.message,
+      });
+    }
   }
 
   return (
     <>
     <SafeAreaView>
+      {/* Loading Spinner */}
+      {isSpinnerOpen && <Spinner />}
+
       <ScrollView >
+
         <View style={styles.container}>
           <Text style={styles.title}>Create an account</Text>
           <Text style={styles.subtitle}>Welcome back to the app</Text>

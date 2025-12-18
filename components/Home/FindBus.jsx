@@ -4,23 +4,21 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from './FindBusStyleSheet'
 import { router, useLocalSearchParams, useRouter } from "expo-router";
+import {searchbus} from '../../axios/searchBus'
+import Spinner from "@/constants/Spinner/Spinner";
 
-const FindBus = () => {
+const FindBus = ({setLoading}) => {
 
     const router = useRouter()
     const params = useLocalSearchParams()
 
-    console.log(params)
     const [boarding, setBoarding] = useState(params.from ? JSON.parse(params.from) : "")
     const [destination, setDestination] = useState(params.to ? JSON.parse(params.to) : "")
 
     const [showCalender, setShowCalender] = useState(false)
     const [inputDate, setInputDate] = useState(null)
 
-
     function onReverse() {
-        console.log(boarding)
-        console.log(destination)
         const temp = boarding
         setBoarding(destination)
         setDestination(temp)
@@ -64,14 +62,24 @@ const FindBus = () => {
         }
     };
 
-    // useEffect(() => {
-    //     if (params.from) setBoarding(JSON.parse(params.from));
-    //     if (params.to) setDestination(JSON.parse(params.to));
-    // }, [params]);
+    async function handleOnSearch(){
+        try {
+            setLoading(true)
+            const response = await searchbus()
+            if(response?.data?.success){
+                setLoading(false)
+                router.push({pathname : '/(search)/searchbus' , params : {
+                    searchData : JSON.stringify(response?.data?.data)
+                }} )
+            }
+        } catch (error) {
+            setLoading(false)
+            console.log(error?.message)
+        }
+    }
 
     return (
         <View style={styles.card}>
-
             {/* From */}
             <TextInput
                 value={boarding?.dropPoint || ""}
@@ -143,7 +151,7 @@ const FindBus = () => {
             {/* Find Bus */}
             <TouchableOpacity
                 style={styles.findButton}
-                onPress={() => router.push('/(search)/searchbus')}
+                onPress={() => handleOnSearch()}
             >
                 <Text style={styles.findButtonText}>Find Buses</Text>
             </TouchableOpacity>

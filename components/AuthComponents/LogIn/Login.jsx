@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import Checkbox from 'expo-checkbox';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Chec } from 'react-native';
 import { styles } from './LoginStyleSheets'
-import { router } from 'expo-router';
+import { router, useRouter } from 'expo-router';
 import { loginUser } from '@/axios/userAuth';
 import Toast from 'react-native-toast-message';
 import Spinner from '../../../constants/Spinner/Spinner'
+import { useDispatch } from 'react-redux';
+import { addUserData } from '@/redux_store/UserDataSlicer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
 
   const [checked, isChecked] = useState(false)
-  const [isSpinnerOpen , setSpinnerOpen] = useState(false)
+  const [isSpinnerOpen, setSpinnerOpen] = useState(false)
+  const router = useRouter()
+  const dispatch = useDispatch()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -28,15 +33,34 @@ const Login = () => {
   }
 
   async function handleLoginUser() {
-    if(checkInputData()) return
-    setSpinnerOpen(true)
-    const data = {
-      email, password
+    try {
+
+      if (checkInputData()) return
+      setSpinnerOpen(true)
+
+      const data = {
+        email, password
+      }
+
+      const response = await loginUser(data)
+
+      if (response?.data?.status) {
+        await AsyncStorage.setItem('token', response?.data?.token)
+        dispatch(addUserData(response?.data?.user))
+        setSpinnerOpen(false)
+        router.replace('/(tabs)/')
+      }
+      else
+        setSpinnerOpen(false)
+
+    } catch (error) {
+      setSpinnerOpen(false)
+      Toast.show({
+        type: "error",
+        text1: "Internal Server Error",
+        text2: error?.message,
+      });
     }
-    console.log(data)
-    const response = await loginUser(data)
-    console.log(data , response?.data?.user)
-    setSpinnerOpen(false)
   }
 
   return (
@@ -85,9 +109,9 @@ const Login = () => {
       </View>
 
       {/* Login Button */}
-      <TouchableOpacity 
-      onPress={handleLoginUser}
-      style={styles.loginBtn}>
+      <TouchableOpacity
+        onPress={handleLoginUser}
+        style={styles.loginBtn}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 

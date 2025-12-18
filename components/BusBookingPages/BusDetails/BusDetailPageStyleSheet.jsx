@@ -57,22 +57,21 @@ export const styles = StyleSheet.create({
     marginTop: 2,
   },
 
-  ratingBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#fff7e6",
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 10,
-    elevation: 2,
-  },
+  distanceBadge: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#EFF6FF',
+  paddingHorizontal: 12,
+  paddingVertical: 6,
+  borderRadius: 20,
+  gap: 6,
+},
 
-  ratingText: {
-    marginLeft: 5,
-    fontSize: 15,
-    fontWeight: "600",
-    color: "#444",
-  },
+distanceText: {
+  fontSize: 13,
+  fontWeight: '600',
+  color: '#2563EB',
+},
 
   routeCard: {
     marginTop: 15,
@@ -161,6 +160,202 @@ export const styles = StyleSheet.create({
     color: "#444",
     marginTop: 6,
     textAlign: "center",
+  },
+
+  // Seat Details Section
+  card: {
+    backgroundColor: '#FFF',
+    // padding: 16,
+    // elevation: 3,
+    marginTop : 25,
+  },
+
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 12,
+  },
+
+  headerText: {
+    fontSize: 20,
+    fontWeight: '600',
+  },
+
+  statsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+
+  },
+
+  statBox: {
+    width: '30%',
+    paddingVertical: 14,
+    borderRadius: 14,
+    alignItems: 'center',
+  },
+
+  statNumber: {
+    fontSize: 22,
+    fontWeight: '700',
+  },
+
+  statLabel: {
+    fontSize: 13,
+    marginTop: 4,
+  },
+
+  availableBg: {
+    backgroundColor: '#ECFDF3',
+  },
+
+  availableText: {
+    color: '#16A34A',
+  },
+
+  seaterBg: {
+    backgroundColor: '#FFF1E6',
+  },
+
+  seaterText: {
+    color: '#FF6B00',
+  },
+
+  sleeperBg: {
+    backgroundColor: '#F6F0FF',
+  },
+
+  sleeperText: {
+    color: '#7C3AED',
+  },
+
+  layoutRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderTopWidth: 1,
+    borderTopColor: '#EEE',
+    paddingTop: 12,
+  },
+
+  layoutLabel: {
+    color: '#777',
+    fontSize: 14,
+  },
+
+  layoutValue: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+
+  // Price Detail Section
+
+  pricingContainer: {
+    backgroundColor: '#FFF',
+    marginTop : 25,
+  },
+
+  pricingHeader: {
+    marginBottom: 12,
+  },
+
+  pricingHeaderText: {
+    fontSize: 20,
+  },
+
+  pricingCard: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#FAF9F7',
+    padding: 14,
+    borderRadius: 14,
+    marginBottom: 12,
+  },
+
+  pricingLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+
+  pricingIconBox: {
+    width: 42,
+    height: 42,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  pricingSeaterBg: {
+    backgroundColor: '#FFF1E6',
+  },
+
+  pricingSleeperBg: {
+    backgroundColor: '#F3ECFF',
+  },
+
+  pricingTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+  },
+
+  pricingSubText: {
+    fontSize: 13,
+    color: '#777',
+    marginTop: 2,
+  },
+
+  pricingSeaterPrice: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FF6B00',
+  },
+
+  pricingSleeperPrice: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#7C3AED',
+  },
+
+  // Vehicle Specification Section
+  vehicleSpecContainer: {
+    backgroundColor: '#FFF',
+    marginTop : 25
+  },
+
+  vehicleSpecHeader: {
+    marginBottom: 12,
+  },
+
+  vehicleSpecHeaderText: {
+    fontSize: 20,
+  },
+
+  vehicleSpecGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+
+  vehicleSpecCard: {
+    width: '48%',
+    backgroundColor: '#FAF9F7',
+    borderRadius: 14,
+    padding: 16,
+    marginBottom: 14,
+    alignItems: 'center',
+  },
+
+  vehicleSpecLabel: {
+    fontSize: 13,
+    color: '#777',
+    marginTop: 10,
+  },
+
+  vehicleSpecValue: {
+    fontSize: 16,
+    fontWeight: '700',
+    marginTop: 4,
   },
 
 });

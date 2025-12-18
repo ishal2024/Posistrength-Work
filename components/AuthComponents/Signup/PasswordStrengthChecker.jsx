@@ -18,7 +18,6 @@ export default function PasswordStrengthChecker({password , setPassword}) {
       <TextInput
         style={[
           styles.input,
-          password.length > 0 && { borderColor: "#FF8C00" },
         ]}
           value={password}
           onChangeText={(text) => setPassword(text)}
