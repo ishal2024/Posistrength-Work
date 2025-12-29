@@ -12,9 +12,9 @@ const VerifyDetails = () => {
   const router = useRouter()
 
   return (
-    <SafeAreaView style = {{flex : 1 , paddingHorizontal : 15 , paddingVertical : 15}}>
+    <SafeAreaView style = {{flex : 1 , paddingHorizontal : 15 , paddingVertical : 15 , backgroundColor : "white"}}>
         <StepProgress activeSteps={['Seats' , 'Pickup' , 'Details' , 'Verify']} />
-        <ScrollView>
+        <ScrollView style = {{backgroundColor : "white"}}>
             {/* Trip Summary Section */}
             <TripSummary />
 

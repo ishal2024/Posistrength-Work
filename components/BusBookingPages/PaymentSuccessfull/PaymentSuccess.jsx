@@ -8,9 +8,9 @@ import TicketActions from './TicketActions'
 
 const PaymentSuccess = () => {
   return (
-    <SafeAreaView style = {{flex : 1 , paddingHorizontal : 15 , paddingVertical : 15}}>
+    <SafeAreaView style = {{flex : 1 , paddingHorizontal : 15 , paddingVertical : 15 , backgroundColor : "white"}}>
             <StepProgress activeSteps={['Seats' , 'Pickup' , 'Details' , 'Verify' , 'Payment' , 'Ticket']} />
-            <ScrollView>
+            <ScrollView style = {{backgroundColor : "white"}}>
                {/* Payment SuccessFull Section */}
                <SuccessSection />
 

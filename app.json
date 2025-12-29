@@ -8,10 +8,13 @@
     "scheme": "express",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+
+    
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "userInterfaceStyle": "light",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

@@ -15,9 +15,9 @@ const SeatSelectionPage = () => {
   const { selectedSeats } = useSelector((state) => state.booking)
 
   return (
-    <SafeAreaView style = {{flex : 1 , paddingHorizontal : 15, paddingVertical : 15}}>
+    <SafeAreaView style = {{flex : 1 , paddingHorizontal : 15, paddingVertical : 15 , backgroundColor : "white"}}>
       <StepProgress activeSteps={["Seats"]} />
-        <ScrollView >
+        <ScrollView style = {{backgroundColor : "white"}}>
             {/* Small Info of bus */}
             <BusHeader />
 

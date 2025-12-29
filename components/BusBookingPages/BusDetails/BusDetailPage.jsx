@@ -37,8 +37,8 @@ const BusDetailPage = () => {
   console.log(routeData)
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={{ paddingHorizontal: 15, paddingTop: 15 }}>
+    <SafeAreaView style={{ flex: 1 , backgroundColor : "white" }}>
+      <ScrollView style={{ paddingHorizontal: 15, paddingTop: 15 , backgroundColor : "white" }}>
 
         {/* Image Header */}
         <View style={styles.cardContainer}>

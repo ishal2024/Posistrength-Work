@@ -24,7 +24,7 @@ const PassengerDetails = () => {
 
 
   return (
-    <SafeAreaView style = {{flex :1, paddingHorizontal : 15, paddingVertical : 15}}>
+    <SafeAreaView style = {{flex :1, paddingHorizontal : 15, paddingVertical : 15 , backgroundColor : "white"}}>
         <StepProgress activeSteps={['Seats' , 'Pickup' , 'Details']} />
         <ScrollView>
               <PassengerDetailBox />
