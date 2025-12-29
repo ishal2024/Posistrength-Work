@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
   priceText: {
     fontSize: 16,
     fontWeight: "700",
-    color: "#222",
+    color: "#f31818ff",
     marginBottom: 8,
   },
 

@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 20,
     marginVertical: 20,
     marginTop : 40,
+    marginBottom : 50
   },
 
   header: {

@@ -8,25 +8,33 @@ import PickAndDropPoints from './PickAndDropPoints'
 import ReviewsSection from './ReviewsSection'
 import FooterSection from './FooterSection'
 import { useLocalSearchParams } from 'expo-router'
+import { useDispatch, useSelector } from 'react-redux'
+import { addData } from '../../../redux_store/BookingSlicer'
 
 const BusDetailPage = () => {
 
+  const dispatch = useDispatch()
   const { busDetail, routeDetail } = useLocalSearchParams()
 
-  const [busData, setBusData] = useState([])
-  const [routeData, setRouteData] = useState([])
+  const {busData , routeData} = useSelector((state) => state.booking)
 
   function setBusDetailData() {
-    const busres = JSON.parse(busDetail)
-    const routeres = JSON.parse(routeDetail)
-    setRouteData(routeres)
-    setBusData(busres)
+    try {
+      const busres = JSON.parse(busDetail)
+      const routeres = JSON.parse(routeDetail)
+      dispatch(addData({dataType : "busData" , data : busres}))
+      dispatch(addData({dataType : "routeData" , data : routeres}))
+    } catch (error) {
+      console.log(error?.message)
+    }
   }
 
 
   useEffect(() => {
     setBusDetailData()
   }, [])
+
+  console.log(routeData)
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -328,7 +336,7 @@ const BusDetailPage = () => {
       </ScrollView>
 
       {/* Footer Section */}
-      <FooterSection />
+      <FooterSection  />
     </SafeAreaView>
   )
 }

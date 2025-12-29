@@ -2,23 +2,16 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from './PassengerDetailSectionStyleSheet'
+import { useSelector } from "react-redux";
 
 export default function PassengerDetailSection() {
 
-    const passengers = [
-        {
-            name: "John Doe",
-            contact: "+1 202 555 0120",
-            age: 28,
-            gender: "Male",
-        },
-        {
-            name: "Sarah Miller",
-            contact: "+1 202 555 8910",
-            age: 24,
-            gender: "Female",
-        },
-    ];
+    const {passengerDetails , selectedSeats} = useSelector((state) => state.booking)
+
+    const seats = selectedSeats.map((s) => s?.number)
+    const passengers = seats.map((seatNum) => passengerDetails[seatNum])
+
+    console.log(passengerDetails)
 
     return (
         <View style={styles.container}>
@@ -56,6 +49,12 @@ export default function PassengerDetailSection() {
                     <View style={styles.infoRow}>
                         <Text style={styles.label}>Gender </Text>
                         <Text style={styles.value}>{p.gender}</Text>
+                    </View>
+
+                    {/* Seat Number */}
+                    <View style={styles.infoRow}>
+                        <Text style={styles.label}>Seat Number </Text>
+                        <Text style={styles.value}>{p.seatNumber}</Text>
                     </View>
 
                 </View>

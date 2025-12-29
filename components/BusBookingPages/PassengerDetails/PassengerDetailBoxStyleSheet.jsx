@@ -84,4 +84,12 @@ export const styles = StyleSheet.create({
   smallInput: {
     width: "48%",
   },
+
+  // Gender DropDown
+  wrapper: {
+    position: 'relative',
+    zIndex : 2
+  },
+
+  
 });

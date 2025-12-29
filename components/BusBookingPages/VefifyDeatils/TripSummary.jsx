@@ -2,10 +2,15 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {styles} from './TripSummaryStyleSheet'
+import { useSelector } from "react-redux";
 
 export default function TripSummary() {
-    const seats = ["B1", "B2"]
-    const baseFare = 900
+
+  const {busData ,routeData, selectedSeats} = useSelector((state) => state.booking)
+
+
+    const seats = selectedSeats.map((s) => s?.number)
+    const baseFare = selectedSeats.reduce((acc , seat) => acc + Number(seat?.price) , 0)
     const serviceFee = 5
     const discount = 5
     const total = baseFare + serviceFee - discount;
@@ -24,8 +29,8 @@ export default function TripSummary() {
             style={{ marginRight: 12 }}
           />
           <View>
-            <Text style={styles.busName}>Express Line </Text>
-            <Text style={styles.busType}>Premium Sleeper </Text>
+            <Text style={styles.busName}>{busData?.bus?.name} </Text>
+            <Text style={styles.busType}>{busData?.bus?.bus_layout?.layout_name} </Text>
           </View>
         </View>
 
@@ -39,12 +44,12 @@ export default function TripSummary() {
 
           <View style={styles.routeTextWrap}>
             <View style={styles.routeBlock}>
-              <Text style={styles.routeTitle}>New York Central Station </Text>
+              <Text style={styles.routeTitle}>{routeData?.departure} </Text>
               <Text style={styles.routeTime}>Jun 15, 07:00 AM </Text>
             </View>
 
             <View style={styles.routeBlock}>
-              <Text style={styles.routeTitle}>Boston South Station </Text>
+              <Text style={styles.routeTitle}>{routeData?.origin} </Text>
               <Text style={styles.routeTime}>Jun 15, 11:30 AM </Text>
             </View>
           </View>

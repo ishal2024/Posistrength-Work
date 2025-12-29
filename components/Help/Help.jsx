@@ -9,7 +9,10 @@ import Policies from "./Policies";
 const Help = () => {
   return (
     <SafeAreaView>
-       <ScrollView>
+       <ScrollView
+       showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 0 }}
+       >
         <HelpHeaderBox />
         <FAQ />
         <GetHelp />

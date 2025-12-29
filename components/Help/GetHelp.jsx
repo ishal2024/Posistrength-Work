@@ -9,9 +9,36 @@ const GetHelp = () => {
       {/* Heading */}
       <Text style={styles.heading}>Get in Touch</Text>
 
+      
+
       {/* Card */}
       <View style={styles.card}>
 
+      {/* Phone Number */}
+      <View style={styles.row}>
+          <View style={styles.iconCircle}>
+            <MaterialIcons name="phone" size={28} color="#FF8A00" />
+          </View>
+          <View style={styles.textBox}>
+            <Text style={styles.title}>Customer Care</Text>
+            <Text style={styles.phone}>+91 398236645</Text>
+            <Text style={styles.subText}>Available 24/7</Text>
+          </View>
+        </View>
+
+      {/* Email */}
+      <View style={styles.row}>
+          <View style={styles.iconCircle}>
+            <MaterialIcons name="email" size={28} color="#FF8A00" />
+          </View>
+          <View style={styles.textBox}>
+            <Text style={styles.title}>Email Support</Text>
+            <Text style={styles.email}>posistrength@gmail.com</Text>
+            <Text style={styles.subText}>Response within 24 hours</Text>
+          </View>
+        </View>
+        
+        {/* Address */}
         <View style={styles.row}>
           <View style={styles.iconCircle}>
             <Entypo name="location-pin" size={28} color="#FF8A00" />

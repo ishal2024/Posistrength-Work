@@ -7,10 +7,12 @@ import SelectedSeats from './SelectedSeats'
 import FooterSection from '../FooterSection'
 import StepProgress from '../StepProgess'
 import { useRouter } from 'expo-router'
+import { useSelector } from 'react-redux'
 
 const SeatSelectionPage = () => {
 
   const router = useRouter()
+  const { selectedSeats } = useSelector((state) => state.booking)
 
   return (
     <SafeAreaView style = {{flex : 1 , paddingHorizontal : 15, paddingVertical : 15}}>
@@ -27,7 +29,7 @@ const SeatSelectionPage = () => {
         </ScrollView>
 
         {/* Footer Section */}
-        <FooterSection text={"Continue"} onRouteChange={() => router.push('/(booking)/pickupSelection')} />
+        <FooterSection isDisabled={selectedSeats.length !== 0 ? false : true} text={"Continue"} onRouteChange={() => router.push('/(booking)/pickupSelection')} />
     </SafeAreaView>
   )
 }

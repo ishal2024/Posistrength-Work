@@ -2,8 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {styles} from './BusHeaderStyleSheet'
+import { useSelector } from "react-redux";
 
 export default function BusHeader() {
+
+  const {busData} = useSelector((state) => state.booking)
+
   return (
     <View style={styles.cardWrap}>
       {/* Bus Icon */}
@@ -16,12 +20,12 @@ export default function BusHeader() {
 
       {/* Text Section */}
       <View>
-        <Text style={styles.title}>Express Lines</Text>
+        <Text style={styles.title}>{busData?.bus?.name}</Text>
 
         <View style={styles.subRow}>
-          <Text style={styles.subText}>Premium Sleeper </Text>
+          <Text style={styles.subText}>{busData?.bus?.bus_layout?.layout_name} </Text>
           <Text style={styles.dot}> • </Text>
-          <Text style={styles.subText}>Jun 15, 07:00 AM </Text>
+          <Text style={styles.subText}>{busData?.route?.route_name} </Text>
         </View>
       </View>
     </View>

@@ -1,65 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { styles } from './BusSeatLayoutStyleSheet'
-import {MaterialCommunityIcons , MaterialIcons} from '@expo/vector-icons'
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { useLocalSearchParams } from "expo-router";
+import { useDispatch, useSelector } from "react-redux";
+import {addData} from '../../../redux_store/BookingSlicer'
 
 export default function BusSeatLayout() {
-    const [selectedSeats, setSelectedSeats] = useState([]);
-    const [activeDeck, setActiveDeck] = useState("lower");
+    const { busData, routeData , selectedSeats } = useSelector((state) => state.booking)
+    const dispatch = useDispatch()
 
-    const seatLayout = [
-        [
-            { id: "A1", status: "available", seatType: "window" },
-            { id: "A2", status: "available", seatType: "aisle" },
-            { id: "A3", status: "booked", seatType: "window" },
-            { id: "A4", status: "booked", seatType: "aisle" },
-        ],
-        [
-            { id: "B1", status: "selected", seatType: "window" },
-            { id: "B2", status: "selected", seatType: "aisle" },
-            { id: "B3", status: "booked", seatType: "window" },
-            { id: "B4", status: "booked", seatType: "aisle" },
-        ],
-        [
-            { id: "C1", status: "available", seatType: "window" },
-            { id: "C2", status: "available", seatType: "aisle" },
-            { id: "C3", status: "available", seatType: "window" },
-            { id: "C4", status: "available", seatType: "aisle" },
-        ],
-        [
-            { id: "E1", status: "available", seatType: "window" },
-            { id: "E2", status: "available", seatType: "aisle" },
-            { id: "E3", status: "available", seatType: "window" },
-            { id: "E4", status: "available", seatType: "aisle" },
-        ],
-        [
-            { id: "F1", status: "available", seatType: "window" },
-            { id: "F2", status: "available", seatType: "aisle" },
-            { id: "F3", status: "available", seatType: "window" },
-            { id: "F4", status: "available", seatType: "aisle" },
-        ],
-        [
-            { id: "G1", status: "available", seatType: "window" },
-            { id: "G2", status: "available", seatType: "aisle" },
-            { id: "G3", status: "available", seatType: "window" },
-            { id: "G4", status: "available", seatType: "aisle" },
-        ],
-    ];
+    const [selectedSeat, setSelectedSeats] = useState(selectedSeats);
+    const [activeDeck, setActiveDeck] = useState("lower");
+    const [seatData, setSeatData] = useState(busData?.bus?.bus_layout?.lower_deck)
+
+    
+    // console.log("SelectSeat Data", busData)
+    // console.log(routeData)
 
     function toggleSeat(seat) {
-        if (seat.status === "booked") return;
+        // if (seat.status === "booked") return;
 
-        if (selectedSeats.includes(seat.id)) {
-            setSelectedSeats(selectedSeats.filter((s) => s !== seat.id));
+        if (selectedSeat.some((s) => s.number === seat.number)) {
+            const filterSeats = selectedSeat.filter((s) => s.number !== seat.number)
+            setSelectedSeats(filterSeats);
+            console.log(filterSeats)
+            dispatch(addData({dataType : "selectedSeats" , data : filterSeats}))
         } else {
-            setSelectedSeats([...selectedSeats, seat.id]);
+            setSelectedSeats([...selectedSeat, {...seat , deck : activeDeck}]);
+            console.log([...selectedSeat, seat])
+            dispatch(addData({dataType : "selectedSeats" , data : [...selectedSeat, {...seat , deck : activeDeck}]}))
         }
     }
 
     function getSeatColor(seat) {
-        if (seat.status === "booked") return "#FF4A4A";       // Red
-        if (selectedSeats.includes(seat.id)) return "#FF8C00"; // Orange
-        return "#4CAF50";                                      // Green
+        // if (seat.status === "booked") return "#FF4A4A";       
+        if (selectedSeat.some((s) => s.number === seat.number))
+          return "#FF8C00"; // Orange
+        else
+        return "#4CAF50";   // Green
     }
 
     return (
@@ -73,7 +52,11 @@ export default function BusSeatLayout() {
                             styles.deck,
                             activeDeck === "lower" && styles.activeDeck
                         ]}
-                        onPress={() => setActiveDeck("lower")}
+                        onPress={() => {
+                            setActiveDeck("lower")
+                            setSeatData(busData?.bus?.bus_layout?.lower_deck)
+                        }
+                        }
                     >
                         <Text
                             style={[
@@ -90,7 +73,12 @@ export default function BusSeatLayout() {
                             styles.deck,
                             activeDeck === "upper" && styles.activeDeck
                         ]}
-                        onPress={() => setActiveDeck("upper")}
+                        onPress={() => {
+                            setActiveDeck("upper")
+                            setSeatData(busData?.bus?.bus_layout?.upper_deck)
+                        }
+
+                        }
                     >
                         <Text
                             style={[
@@ -105,32 +93,66 @@ export default function BusSeatLayout() {
             </View>
 
             <View style={styles.busHeader}>
-                <MaterialCommunityIcons name="door" size={25} color={"#3c3b3bff"}/>
-                <MaterialCommunityIcons name="steering" size={25} color={"#3c3b3bff"}/>
+                <MaterialCommunityIcons name="door" size={25} color={"#3c3b3bff"} />
+                <MaterialCommunityIcons name="steering" size={25} color={"#3c3b3bff"} />
                 {/* <MaterialCommunityIcons name="door" size={25}/> */}
             </View>
 
 
-            {seatLayout.map((row, rowIndex) => (
-                <View key={rowIndex} style={styles.row}>
-                    {row.map((seat) => (
-                        <TouchableOpacity
-                            key={seat.id}
-                            style={styles.seatIconWrap}
-                            onPress={() => toggleSeat(seat)}
-                            activeOpacity={0.7}
-                            disabled={seat.status === "booked"}   // booked cannot be tapped
-                        >
-                            <MaterialCommunityIcons
-                                name="sofa-single"                // 👈 seat icon
-                                size={32}
-                                color={getSeatColor(seat)} // selected/available/booked color
-                            />
-                            <Text style={styles.seatLabel}>{seat.id}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-            ))}
+            <View style={styles.deck}>
+                {seatData.map((row, rowIndex) => {
+                    const leftSeat = row[0];       // left side (usually sleeper)
+                    const rightSeats = row.slice(1); // right side (seater / sleeper)
+
+                    return (
+                        <View key={rowIndex} style={styles.row}>
+
+                            {/* LEFT SIDE */}
+                            {leftSeat && leftSeat.type === 'sleeper' && (
+                                <TouchableOpacity
+                                    style={styles.sleeperSeat}
+                                    onPress={() => toggleSeat(leftSeat)}
+                                    activeOpacity={0.7}
+                                >
+                                    <MaterialCommunityIcons
+                                        name="bed"
+                                        size={28}
+                                        color={getSeatColor(leftSeat)}
+                                    />
+                                    <Text style={styles.seatText}>{leftSeat.number}</Text>
+                                </TouchableOpacity>
+                            )}
+
+                            {/* AISLE SPACE */}
+                            <View style={styles.aisle} />
+
+                            {/* RIGHT SIDE */}
+                            <View style={styles.rightGroup}>
+                                {rightSeats.map(seat => {
+                                    const isSleeper = seat.type === 'sleeper';
+
+                                    return (
+                                        <TouchableOpacity
+                                            key={seat.number}
+                                            style={isSleeper ? styles.sleeperSeatSmall : styles.seaterSeat}
+                                            onPress={() => toggleSeat(seat)}
+                                            activeOpacity={0.7}
+                                        >
+                                            <MaterialCommunityIcons
+                                                name={isSleeper ? 'bed' : 'seat'}
+                                                size={isSleeper ? 26 : 22}
+                                                color={getSeatColor(seat)}
+                                            />
+                                            <Text style={styles.seatText}>{seat.number}</Text>
+                                        </TouchableOpacity>
+                                    );
+                                })}
+                            </View>
+
+                        </View>
+                    );
+                })}
+            </View>
 
             {/* Legend */}
             <View style={styles.legendRow}>

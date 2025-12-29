@@ -22,7 +22,7 @@ export default function TabLayout() {
           borderTopWidth: 1,
           borderTopColor: "rgba(0,0,0,0.08)",
           height: 60 +  insets.bottom,  // Add safe area height
-          paddingBottom:  insets.bottom, 
+          // paddingBottom:  insets.bottom, 
           paddingTop:  6 ,
           
         },

@@ -3,21 +3,26 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router'
 import { styles } from './SearchBusStyleSheets';
+import { useDispatch } from 'react-redux';
+import { addData } from '../../redux_store/BookingSlicer';
 
 const BusRouteCard = ({ cardData, routeDetail }) => {
 
   const router = useRouter()
-  console.log(cardData)
-  console.log(routeDetail)
+  const dispatch = useDispatch()
+
   return (
     <TouchableOpacity
       style={styles.busCard}
-      onPress={() => router.push({
+      onPress={() => {
+        dispatch(addData({dataType : 'selectedSeats' , data : []}))
+        dispatch(addData({dataType : 'passengerDetails' , data : {}}))
+        router.push({
         pathname: '/(booking)/busDetail', params: {
           busDetail: JSON.stringify(cardData),
           routeDetail: JSON.stringify(routeDetail)
         }
-      })}
+      })}}
     >
       {/* TOP ROW */}
       <View style={styles.topRow}>

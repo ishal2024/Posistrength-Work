@@ -26,13 +26,12 @@ export default MyAccountHome;
 
 const styles = StyleSheet.create({
   safe: {
-    flex: 1,
-    backgroundColor: "white", // light cream like redBus
+    // flex: 1,
  
   },
 
   scroll: {
-    flex: 1,
+    // flex: 1,
   },
 
 });

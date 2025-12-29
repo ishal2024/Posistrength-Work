@@ -53,4 +53,8 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
   },
+
+  disabledBtn: {
+  opacity: 0.5,
+}
 });
