@@ -1,8 +1,12 @@
 import React from "react";
 import { View, Text, ImageBackground, StyleSheet, Image } from "react-native";
 import {styles} from './HeaderStyleSheet'
+import { useSelector } from "react-redux";
 
 const MyAccountHeader = () => {
+
+  const {userData} = useSelector((state) => state?.user)
+
   return (
     <View style = {styles.container}>
     <ImageBackground
@@ -18,8 +22,8 @@ const MyAccountHeader = () => {
         />
 
         <View>
-          <Text style={styles.userName}>Vishal Jha</Text>
-          <Text style={styles.email}>jhav8422@gmail.com</Text>
+          <Text style={styles.userName}>{userData?.name}</Text>
+          <Text style={styles.email}>{userData?.email}</Text>
         </View>
       </View>
     </ImageBackground>

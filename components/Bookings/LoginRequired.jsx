@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { styles } from './LoginRequiredStyleSheet'
 import {useRouter} from 'expo-router'
 
-const LoginRequired = () => {
+const LoginRequired = ({message}) => {
 
   const router = useRouter()
 
@@ -20,10 +20,7 @@ const LoginRequired = () => {
       <Text style={styles.title}>Login Required</Text>
 
       {/* Description */}
-      <Text style={styles.desc}>
-        Please log in to view your booking history and manage your trips.
-        Sign in to access all your past and upcoming journeys.
-      </Text>
+      <Text style={styles.desc}>{message}</Text>
 
       {/* Login Button */}
       <TouchableOpacity style={styles.loginBtn} onPress={() => router.push('/login')}>
@@ -37,7 +34,7 @@ const LoginRequired = () => {
       </TouchableOpacity>
 
       {/* Footer Info */}
-      <View style={{
+      {/* <View style={{
         height: 1,
         backgroundColor: '#e0e0e0',
         width: '100%',
@@ -48,7 +45,7 @@ const LoginRequired = () => {
         <Text style={styles.footerText}>
           Track your bookings, view tickets, and manage your travel plans
         </Text>
-      </View>
+      </View> */}
     </View>
   );
 };

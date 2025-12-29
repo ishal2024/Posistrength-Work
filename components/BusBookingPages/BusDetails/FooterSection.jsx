@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { styles } from './FooterSectionStyleSheet'
 import { useRouter } from 'expo-router'
 import { Route } from "expo-router/build/Route";
+import { useSelector } from "react-redux";
+import { SafeAreaView } from "react-native-safe-area-context";
+import LoginRequiredDialog from "../../../constants/Dialogs/LoginRequiredDialog";
 
 export default function FooterSection() {
   const router = useRouter()
-  return (
-    <View style={styles.footerWrap}>
+  const [showLoginDialog, setShowLoginDialog] = useState(false);
 
+
+  const { status } = useSelector((state) => state.user)
+
+  function onPressSelectSeat() {
+    if (status)
+      router.push('/(booking)/selectSeats')
+    else {
+      setShowLoginDialog(true)
+      // return (
+      //   <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
+      //     <LoginRequiredDialog />
+      //   </SafeAreaView>
+      // )
+    }
+  }
+
+  return (
+    
+    <View style={styles.footerWrap}>
+     {showLoginDialog &&  <LoginRequiredDialog onCancel = {setShowLoginDialog} />}
       {/* Price */}
       <View style={styles.priceBox}>
         <Text style={styles.priceText}>₹45.00</Text>
@@ -16,7 +38,7 @@ export default function FooterSection() {
       </View>
 
       {/* Button */}
-      <TouchableOpacity style={styles.seatBtn} onPress={() => router.push('/(booking)/selectSeats')}>
+      <TouchableOpacity style={styles.seatBtn} onPress={() => onPressSelectSeat()}>
         <Text style={styles.btnText}>Select Seats</Text>
       </TouchableOpacity>
 

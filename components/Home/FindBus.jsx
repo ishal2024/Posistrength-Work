@@ -4,10 +4,11 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from './FindBusStyleSheet'
 import { router, useLocalSearchParams, useRouter } from "expo-router";
-import {searchbus} from '../../axios/searchBus'
+import { searchbus } from '../../axios/searchBus'
 import Spinner from "@/constants/Spinner/Spinner";
+import Toast from "react-native-toast-message";
 
-const FindBus = ({setLoading}) => {
+const FindBus = ({ setLoading }) => {
 
     const router = useRouter()
     const params = useLocalSearchParams()
@@ -62,15 +63,34 @@ const FindBus = ({setLoading}) => {
         }
     };
 
-    async function handleOnSearch(){
+    async function handleOnSearch() {
+        console.log("Boarding :- ", boarding)
+        console.log("Destination :- ", destination)
+        console.log("Date :- ", inputDate)
         try {
+            if (!inputDate || !destination || !boarding){
+                Toast.show({
+                    type: 'error',
+                    text1: 'Incomplete Details',
+                    text2: 'Please select your departure date and destination city.'
+                });
+                return
+            }
+
+            const data = { boarding: boarding?.city, destination: destination?.city, date: inputDate }
             setLoading(true)
-            const response = await searchbus()
-            if(response?.data?.success){
+            const response = await searchbus(data)
+            console.log(response?.data)
+            if (response?.data?.success) {
                 setLoading(false)
-                router.push({pathname : '/(search)/searchbus' , params : {
-                    searchData : JSON.stringify(response?.data?.data)
-                }} )
+                router.push({
+                    pathname: '/(search)/searchbus', params: {
+                        searchData: JSON.stringify(response?.data?.data)
+                    }
+                })
+            }
+            else {
+                setLoading(false)
             }
         } catch (error) {
             setLoading(false)
@@ -82,11 +102,13 @@ const FindBus = ({setLoading}) => {
         <View style={styles.card}>
             {/* From */}
             <TextInput
-                value={boarding?.dropPoint || ""}
-                onPress={() => router.push({ pathname: '/(search)/searchLocation', params: { 
-                    locationType: "from" ,
-                    oldData : JSON.stringify(destination)
-                } })}
+                value={boarding?.city || ""}
+                onPress={() => router.push({
+                    pathname: '/(search)/searchLocation', params: {
+                        locationType: "from",
+                        oldData: JSON.stringify(destination)
+                    }
+                })}
                 placeholder="Boarding From"
                 placeholderTextColor="#9e9e9e"
                 onChangeText={text => setBoarding(text)}
@@ -95,10 +117,14 @@ const FindBus = ({setLoading}) => {
 
             {/* To */}
             <TextInput
-                value={destination?.dropPoint || ""}
-                onPress={() => router.push({ pathname: '/(search)/searchLocation', params: 
-                    { locationType: "to" , 
-                     oldData : JSON.stringify(boarding)  } })}
+                value={destination?.city || ""}
+                onPress={() => router.push({
+                    pathname: '/(search)/searchLocation', params:
+                    {
+                        locationType: "to",
+                        oldData: JSON.stringify(boarding)
+                    }
+                })}
                 placeholder="Where are you going?"
                 placeholderTextColor="#9e9e9e"
                 onChangeText={text => setDestination(text)}
