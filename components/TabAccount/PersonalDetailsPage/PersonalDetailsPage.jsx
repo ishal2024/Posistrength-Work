@@ -146,6 +146,7 @@ export default function PersonalDetailPage() {
                 value={name}
                 onChangeText={setName}
                 placeholder="Enter your name"
+                placeholderTextColor="#6b6a6a"
               />
             </View>
 
@@ -158,6 +159,7 @@ export default function PersonalDetailPage() {
                 onChangeText={setContact}
                 placeholder="Enter contact number"
                 keyboardType="numeric"
+                placeholderTextColor="#6b6a6a"
               />
             </View>
 
@@ -171,6 +173,7 @@ export default function PersonalDetailPage() {
                 placeholder="Enter email"
                 keyboardType="email-address"
                 autoCapitalize="none"
+                placeholderTextColor="#6b6a6a"
               />
             </View>
 
@@ -182,6 +185,7 @@ export default function PersonalDetailPage() {
                 value={password}
                 onChangeText={setPassword}
                 placeholder="New Password"
+                placeholderTextColor="#6b6a6a"
                 secureTextEntry
               />
             </View>
@@ -194,6 +198,7 @@ export default function PersonalDetailPage() {
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
                 placeholder="Confirm Password"
+                placeholderTextColor="#6b6a6a"
                 secureTextEntry
               />
             </View>

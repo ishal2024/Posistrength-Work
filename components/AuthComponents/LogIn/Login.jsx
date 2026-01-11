@@ -131,6 +131,7 @@ const LoginScreen = () => {
                   placeholder="example@mail.com"
                   autoCapitalize="none"
                   keyboardType="email-address"
+                  placeholderTextColor="#6b6a6a"
                   value={email}
                   onChangeText={handleEmailChange}
                 />
@@ -149,6 +150,7 @@ const LoginScreen = () => {
                   secureTextEntry={!showPassword}
                   value={password}
                   onChangeText={setPassword}
+                  placeholderTextColor="#6b6a6a"
                 />
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}

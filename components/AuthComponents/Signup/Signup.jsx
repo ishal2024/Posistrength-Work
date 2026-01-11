@@ -180,6 +180,7 @@ export const SignUpScreen = () => {
                   placeholder="John Doe"
                   value={name}
                   onChangeText={setName}
+                  placeholderTextColor="#6b6a6a"
                 />
               </View>
             </View>
@@ -196,6 +197,7 @@ export const SignUpScreen = () => {
                   maxLength={10}
                   value={contact}
                   onChangeText={validateContact}
+                  placeholderTextColor="#6b6a6a"
                 />
               </View>
               {contactError ? <Text style={styles.errorText}>{contactError}</Text> : null}
@@ -213,6 +215,7 @@ export const SignUpScreen = () => {
                   keyboardType="email-address"
                   value={email}
                   onChangeText={validateEmail}
+                  placeholderTextColor="#6b6a6a"
                 />
               </View>
               {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
@@ -229,6 +232,7 @@ export const SignUpScreen = () => {
                   secureTextEntry={!showPassword} // Toggles visibility
                   value={password}
                   onChangeText={validatePassword}
+                  placeholderTextColor="#6b6a6a"
                 />
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}
@@ -255,6 +259,7 @@ export const SignUpScreen = () => {
                   secureTextEntry={!showConfirmPassword} // Toggles visibility
                   value={confirmPassword}
                   onChangeText={validateConfirmPassword}
+                  placeholderTextColor="#6b6a6a"
                 />
                 <TouchableOpacity
                   onPress={() => setShowConfirmPassword(!showConfirmPassword)}

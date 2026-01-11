@@ -108,7 +108,7 @@ function handlePassengerDetails(seatNumber, inputKey, inputValue) {
                   style={styles.input}
                   placeholder="Enter Contact  Number"
                   keyboardType="numeric"
-                  placeholderTextColor="#999"
+                  placeholderTextColor="#6b6a6a"
                   onChangeText={(text) => handlePassengerDetails(item?.number , "contact" , text)}
                 />
 
@@ -119,6 +119,7 @@ function handlePassengerDetails(seatNumber, inputKey, inputValue) {
                     style={[styles.input, styles.smallInput]}
                     placeholder="Enter Age"
                     keyboardType="numeric"
+                    placeholderTextColor="#6b6a6a"
                     onChangeText={(text) => handlePassengerDetails(item?.number , "age" , text)}
                   />
 
@@ -126,6 +127,7 @@ function handlePassengerDetails(seatNumber, inputKey, inputValue) {
                   value={passengerDetail[item?.number]?.gender || ""}
                     style={[styles.input, styles.smallInput]}
                     placeholder="Enter Gender"
+                    placeholderTextColor="#6b6a6a"
                     onChangeText={(text) => handlePassengerDetails(item?.number , "gender" , text)}
                     
                   />
