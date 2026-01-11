@@ -51,7 +51,7 @@ const BlogDetailPage = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
       
-      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+      <ScrollView style = {{backgroundColor : "#fff"}} showsVerticalScrollIndicator={false} bounces={false}>
         {/* --- Hero Image Section --- */}
         <View style={styles.heroContainer}>
           <Image 
