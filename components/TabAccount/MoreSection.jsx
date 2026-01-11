@@ -11,6 +11,7 @@ const MoreSection = () => {
   const items = [
     { title: "Offers", icon: "offer", navigate : "/(account)/offers" },
     { title: "About Us", icon: "information-outline", navigate : "/(account)/aboutUs" },
+    { title: "Blogs", icon: "book-open-page-variant", navigate : "/(blogs)/blogs" },
     { title: "Rate App", icon: "star-half-full", navigate : "" },
     { title: "Help", icon: "help-circle-outline", navigate : "/(tabs)/help" },
     { title: "Account Settings", icon: "account-cog", navigate : "/(account)/accountSetting" },

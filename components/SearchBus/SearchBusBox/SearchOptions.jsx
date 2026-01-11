@@ -2,42 +2,37 @@ import React from 'react'
 import { View, Text, TextInput, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from 'expo-router';
-
+import { useDispatch } from 'react-redux';
+import {addFromPoint , addToPoint} from '../../../redux_store/FindBusSlicer'
 
 const SearchOptions = ({ locationData }) => {
 
 
-    const { locationType, oldData } = useLocalSearchParams()
-    console.log("Route Data :- ", locationType, oldData)
+    const { locationType } = useLocalSearchParams()
+    const dispatch = useDispatch()
 
     const router = useRouter()
     function handleSendLocation(data) {
-        if (locationType == 'from')
-            router.push({
-                pathname: '/(tabs)/', params: {
-                    to: oldData,
-                    from: JSON.stringify(data)
-                }
-            })
-        else
-            router.push({
-                pathname: '/(tabs)/', params: {
-                    from: oldData,
-                    to: JSON.stringify(data)
-                }
-            })
+        if (locationType == 'from'){
+            dispatch(addFromPoint(data?.name))
+            router.push('/(tabs)/')
+        }
+        else{
+            dispatch(addToPoint(data?.name))
+            router.push('/(tabs)/')
+        }
     }
 
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
-            {locationData.map((city, index) => (
-                <TouchableOpacity key={city.id} style={styles.cityRow} onPress={() => handleSendLocation(city)}>
+            {locationData.map((data, index) => (
+                <TouchableOpacity key={data.id} style={styles.cityRow} onPress={() => handleSendLocation(data)}>
                     <View style={styles.leftContainer}>
                         <Ionicons name="business-outline" size={26} color="#FF7A00" />
 
                         <View style={styles.textContainer}>
-                            <Text style={styles.dropName}>{city.dropPoint}</Text>
-                            <Text style={styles.cityName}>{city.city}</Text>
+                            <Text style={styles.dropName}>{data.name}</Text>
+                            {/* <Text style={styles.cityName}>{data.city}</Text> */}
                         </View>
                     </View>
 

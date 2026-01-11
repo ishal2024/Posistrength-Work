@@ -1,132 +1,132 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  container: {
+   container: {
     flex: 1,
-    backgroundColor: '#fff7f1',
+    backgroundColor: '#FFFFFF',
+  },
+  scrollContent: {
     paddingHorizontal: 25,
-    justifyContent: "center",
+    paddingBottom: 40,
   },
-
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-    textAlign: 'center',
-    marginBottom: 6,
-    color: '#1a1a1a',
-  },
-
-  subTitle: {
-    textAlign: 'center',
-    color: '#b57c5d',
-    marginBottom: 25,
-  },
-
-  label: {
-    fontSize: 14,
-    color: '#444',
-    marginBottom: 6,
-    marginTop: 12,
-  },
-
-  input: {
-    height: 48,
-    borderWidth: 1,
-    borderColor: '#878382',
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    fontSize: 14,
-    backgroundColor: '#fff',
-  },
-
-  passwordRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  header: {
     alignItems: 'center',
+    marginTop: 60,
+    marginBottom: 40,
   },
-
-  forgot: {
-    fontSize: 12,
-    color: '#ec3b10',
-  },
-
-  checkRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 15,
-  },
-
-  checkbox: {
-    width: 18,
-    height: 18,
-    borderColor: '#878382',
-    borderWidth: 2,
-    borderRadius: 3,
-    marginRight: 10,
-  },
-
-  checkText: {
-    color: '#555',
-  },
-
-  loginBtn: {
-    backgroundColor: '#ff7a00',
-    height: 50,
+  logoCircle: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#FFF3E0',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 26,
-    marginTop: 5,
+    marginBottom: 20,
+    elevation: 4,
+    shadowColor: '#FF5722',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
   },
-
-  loginText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+  title: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#2D3436',
+    marginBottom: 8,
   },
-
-  dividerRow: {
+  subtitle: {
+    fontSize: 14,
+    color: '#636E72',
+    textAlign: 'center',
+  },
+  formContainer: {
+    marginTop: 10,
+  },
+  inputGroup: {
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#2D3436',
+    marginBottom: 8,
+    marginLeft: 4,
+  },
+  inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 25,
+    backgroundColor: '#F8F9FA',
+    borderRadius: 15,
+    borderWidth: 1.5,
+    borderColor: '#F1F3F5',
+    paddingHorizontal: 15,
+    height: 55,
   },
-
-  line: {
-    flex: 1,
-    height: 1,
-    backgroundColor: '#ddd',
+  inputErrorBorder: {
+    borderColor: '#FF0000',
+    backgroundColor: '#FFF5F5',
   },
-
-  or: {
-    marginHorizontal: 12,
-    color: '#777',
-  },
-
-  googleBtn: {
-    height: 50,
-    backgroundColor: '#e8e8e8',
-    borderRadius: 26,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent : 'center',
-    paddingHorizontal: 20,
-  },
-
-  googleIcon: {
-    width: 30,
-    height: 30,
+  icon: {
     marginRight: 12,
   },
-
-  googleText: {
-    fontSize: 15,
-    color: '#333',
+  input: {
+    flex: 1,
+    fontSize: 16,
+    color: '#2D3436',
     fontWeight: '500',
   },
-
-  createAccount: {
-    textAlign: 'center',
-    color: '#ff7a00',
-    marginTop: 28,
+  eyeIcon: {
+    padding: 5,
+  },
+  errorText: {
+    color: '#FF0000',
+    fontSize: 12,
+    marginTop: 6,
+    marginLeft: 4,
     fontWeight: '600',
+  },
+  forgotPasswordContainer: {
+    alignSelf: 'flex-end',
+    marginBottom: 25,
+    marginTop: -5,
+  },
+  forgotPasswordText: {
+    color: '#FF5722',
+    fontWeight: '700',
+    fontSize: 14,
+  },
+  button: {
+    backgroundColor: '#FF5722',
+    height: 60,
+    borderRadius: 15,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 6,
+    shadowColor: '#FF5722',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '800',
+    letterSpacing: 1,
+    marginRight: 10,
+  },
+  footerLink: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 30,
+  },
+  footerText: {
+    color: '#636E72',
+    fontSize: 14,
+  },
+  signUpText: {
+    color: '#FF5722',
+    fontWeight: '700',
+    fontSize: 14,
   },
 });

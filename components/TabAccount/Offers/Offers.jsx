@@ -37,8 +37,8 @@ const Offers = () => {
     ];
 
     return (
-        <SafeAreaView >
-            <ScrollView>
+        <SafeAreaView style = {{backgroundColor : "#FFF"}}>
+            <ScrollView style = {{backgroundColor : "#FFF"}}>
                  <View style = {styles.container}>
                     {offersData.map((item) => {
                         return(

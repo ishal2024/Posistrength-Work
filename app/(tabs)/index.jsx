@@ -11,9 +11,11 @@ import Login from '../../components/AuthComponents/LogIn/Login'
 import Signup from '../../components/AuthComponents/Signup/Signup'
 import Home from '../../components/Home/Home'
 
+
 export default function HomeScreen() {
   return (
     <Home />
+
   );
 }
 

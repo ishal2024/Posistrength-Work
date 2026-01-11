@@ -1,90 +1,92 @@
-import React, { useRef } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { useRouter } from 'expo-router';
 import {styles} from './LatestTravelStoriesStyleSheet'
 
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
+import { useSelector } from 'react-redux';
 
+const { width } = Dimensions.get('window');
+const CARD_WIDTH = width * 0.75; // Shows part of the next card
 
-export default function LatestTravelStories() {
-    const [index, setIndex] = React.useState(0);
-    
-    const stories = [
-      {
-        id: "1",
-        title: "Exploring the Hills of Manali",
-        desc: "A peaceful escape into the mountains with scenic views.",
-        date: "18 Nov 2024",
-        image: "https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg",
-      },
-      {
-        id: "2",
-        title: "Beaches of Goa",
-        desc: "Golden sand beaches and an unforgettable nightlife.",
-        date: "10 Nov 2024",
-        image: "https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg",
-      },
-      {
-        id: "3",
-        title: " Jaipur – Pink City Tour ",
-        desc: "A royal journey through palaces and colorful markets.",
-        date: "1 Nov 2024",
-        image: "https://images.pexels.com/photos/302263/pexels-photo-302263.jpeg",
-      },
-    ];
-
-  const goNext = () => {
-    if (index < stories.length - 1) setIndex(index + 1);
-  };
-
-  const goPrev = () => {
-    if (index > 0) setIndex(index - 1);
-  };
-
-  const current = stories[index];
+const TravelStories = () => {
+  
+  const router = useRouter()
+  const {blogData} = useSelector((state) => state?.home)
 
   return (
-    <View style={styles.wrapper}>
-      {/* HEADER */}
-      <View style={styles.header}>
-        <Text style={styles.heading}>Latest Travel Stories</Text>
-        <Feather name="book-open" size={22} color="#fff" />
+    <View style={styles.sectionContainer}>
+      <View style={styles.headerRow}>
+        <Text style={styles.sectionTitle}>Latest Travel Stories</Text>
+        <TouchableOpacity>
+          <Text style={styles.viewAllBtn} onPress={() => router.push('/(blogs)/blogs')}>View All</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* CARD */}
-      <View style={styles.sliderBox}>
-        <View style={styles.card}>
-          <Image source={{ uri: current.image }} style={styles.image} />
-
-          <View style={styles.infoBox}>
-            <Text style={styles.title}>{current.title}</Text>
-            <Text style={styles.desc}>{current.desc}</Text>
-            <Text style={styles.date}>Published: {current.date}</Text>
-          </View>
-        </View>
-
-        {/* SLIDER BUTTONS */}
-        <View style={styles.btnRow}>
-          <TouchableOpacity
-            disabled={index === 0}
-            onPress={goPrev}
-            style={[styles.arrowBtn, index === 0 && { opacity: 0.4 }]}
-          >
-            <Feather name="chevron-left" size={28} color="#f5a623" />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            disabled={index === stories.length - 1}
-            onPress={goNext}
-            style={[
-              styles.arrowBtn,
-              index === stories.length - 1 && { opacity: 0.4 },
-            ]}
-          >
-            <Feather name="chevron-right" size={28} color="#f5a623" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <FlatList
+        data={blogData}
+        renderItem={renderStoryCard}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        snapToAlignment="start"
+        decelerationRate="fast"
+        snapToInterval={CARD_WIDTH + 20} // Card width + margin
+        contentContainerStyle={styles.listPadding}
+      />
     </View>
   );
-}
+};
+
+
+export default TravelStories;
+
+
+
+// Function to format the date
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  });
+};
+// Function to strip HTML tags for preview text
+const stripHtml = (html) => {
+  if (!html) return "";
+  return html.replace(/<[^>]*>?/gm, '').trim();
+};
+
+ const renderStoryCard = ({ item }) => (
+    <TouchableOpacity activeOpacity={0.9} style={styles.card}>
+      <Image 
+        source={{ uri: "https://www.dev.pssplbooking.com/" + item.blog_img }} 
+        style={styles.cardImage} 
+        resizeMode="cover"
+      />
+      
+      <View style={styles.cardContent}>
+        <Text style={styles.dateText}>{formatDate(item.created_at)}</Text>
+        <Text style={styles.cardHeading} numberOfLines={1}>
+          {item.heading}
+        </Text>
+        <Text style={styles.cardDescription} numberOfLines={2}>
+          {stripHtml(item.sub_heading)}
+        </Text>
+        
+        <View style={styles.footerRow}>
+          <Text style={styles.readMoreText}>Read More</Text>
+          <View style={styles.readMoreDot} />
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
 

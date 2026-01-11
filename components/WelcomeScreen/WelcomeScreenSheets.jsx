@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF5EC',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 24,
@@ -15,7 +15,7 @@ skip: {
    top: 50, right: 20, 
    paddingVertical: 8,
    paddingHorizontal: 16,
-   backgroundColor: '#FF8C2A', 
+   backgroundColor: '#FF5722', 
    borderRadius: 20, 
    fontSize: 14, 
    color: 'white', 
@@ -46,7 +46,7 @@ skip: {
   },
 
   button: {
-    backgroundColor: '#FF8C2A',
+    backgroundColor: '#FF5722',
     paddingVertical: 14,
     paddingHorizontal: 50,
     borderRadius: 30,
@@ -60,7 +60,7 @@ skip: {
   },
 
   createAccount: {
-    color: '#FF8C2A',
+    color: '#FF5722',
     fontSize: 14,
     marginTop: 18,
     fontWeight: '600',

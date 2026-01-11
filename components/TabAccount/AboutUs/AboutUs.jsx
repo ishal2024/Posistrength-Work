@@ -6,8 +6,8 @@ import AboutLinks from './AboutLinks'
 
 const AboutUs = () => {
   return (
-    <SafeAreaView>
-        <ScrollView>
+    <SafeAreaView style = {{backgroundColor : "#FFF"}}>
+        <ScrollView style = {{backgroundColor : "#FFF"}}>
             <AboutInfo />
             <AboutLinks />
         </ScrollView>

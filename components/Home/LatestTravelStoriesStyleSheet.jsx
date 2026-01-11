@@ -1,80 +1,93 @@
 import { Dimensions, StyleSheet } from "react-native";
 
-const { width } = Dimensions.get("window");
-    const CARD_WIDTH = width * 0.88;
+
+const { width } = Dimensions.get('window');
+const CARD_WIDTH = width * 0.75; // Shows part of the next card
 
 export const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: "#ff8c32",
+
+
+    sectionContainer: {
+    backgroundColor: '',
     paddingVertical: 20,
-    marginVertical: 20,
-    marginTop : 40,
-    marginBottom : 50
+    marginTop: 20,
   },
-
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 20,
-    marginBottom: 12,
-    alignItems: "center",
+    marginBottom: 15,
   },
-
-  heading: {
+  sectionTitle: {
     fontSize: 20,
-    fontWeight: "800",
-    color: "#fff",
+    fontWeight: '700',
+    color: '#1A1A1A',
   },
-
-  sliderBox: {
-    alignItems: "center",
+  viewAllBtn: {
+    fontSize: 14,
+    color: '#FF6F00', // Matching the orange theme
+    fontWeight: '600',
   },
-
+  listPadding: {
+    paddingLeft: 20,
+    paddingRight: 10,
+    paddingBottom: 10, // Space for shadow
+  },
   card: {
     width: CARD_WIDTH,
-    backgroundColor: "#fff",
+    backgroundColor: '#FFF',
     borderRadius: 16,
-    flexDirection: "row",
-    overflow: "hidden",
+    marginRight: 20,
+    // Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    // Elevation for Android
+    elevation: 5,
+    overflow: 'hidden',
   },
-
-  image: {
-    width: CARD_WIDTH * 0.42,
-    height: 150,
+  cardImage: {
+    width: '100%',
+    height: 140,
   },
-
-  infoBox: {
-    flex: 1,
-    padding: 12,
-    justifyContent: "space-between",
+  cardContent: {
+    padding: 15,
   },
-
-  title: {
+  dateText: {
+    fontSize: 11,
+    color: '#999',
+    textTransform: 'uppercase',
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  cardHeading: {
     fontSize: 16,
-    fontWeight: "700",
-    color: "#111",
+    fontWeight: '700',
+    color: '#222',
+    marginBottom: 6,
   },
-
-  desc: {
+  cardDescription: {
     fontSize: 13,
-    color: "#444",
+    color: '#666',
+    lineHeight: 18,
+    marginBottom: 12,
   },
-
-  date: {
+  footerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  readMoreText: {
     fontSize: 12,
-    color: "#777",
+    fontWeight: '700',
+    color: '#FF6F00',
+    marginRight: 6,
   },
-
-  btnRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: CARD_WIDTH,
-    marginTop: 12,
-  },
-
-  arrowBtn: {
-    backgroundColor: "white",
-    padding: 10,
-    borderRadius: 10,
+  readMoreDot: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: '#FF6F00',
   },
 });

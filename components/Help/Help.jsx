@@ -8,7 +8,7 @@ import Policies from "./Policies";
 
 const Help = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style = {{backgroundColor : '#fff'}}>
        <ScrollView
        showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 0 }}

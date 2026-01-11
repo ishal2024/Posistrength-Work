@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions } from "react-native";
 
 const { width } = Dimensions.get("window");
 
+
 export const styles = StyleSheet.create({
   headerRow: {
     flexDirection: "row",
@@ -85,4 +86,5 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FF8C00",
     width: 10,
   },
+
 });

@@ -5,6 +5,18 @@ const { width } = Dimensions.get("window");
 // Small card width (like screenshot)
 const CARD_WIDTH = width * 0.42;
 
+
+const COLORS = {
+  primary: '#FF5722', // Deep Orange
+  secondary: '#FFCCBC',
+  white: '#FFFFFF',
+  background: '#F8F9FA',
+  textDark: '#2D3436',
+  textLight: '#636E72',
+  accent: '#FF9F43',
+  shadow: '#000000',
+};
+
 export const styles = StyleSheet.create({
   wrapper: {
     marginTop: 20,
@@ -86,5 +98,37 @@ export const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontSize: 14,
+  },
+
+  routeCard: {
+    width: 200,
+    backgroundColor: COLORS.white,
+    borderRadius: 18,
+    marginRight: 15,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    marginBottom: 10,
+  },
+  routeImage: {
+    width: '100%',
+    height: 100,
+    borderTopLeftRadius: 18,
+    borderTopRightRadius: 18,
+  },
+  routeInfo: {
+    padding: 12
+  },
+  routeName: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: COLORS.textDark,
+  },
+  routePrice: {
+    fontSize: 12,
+    color: COLORS.textLight,
+    marginTop: 4,
   },
 });

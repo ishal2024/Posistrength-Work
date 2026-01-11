@@ -4,155 +4,122 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal : 25,
-    paddingTop : 25,
-    backgroundColor: '#fff7f1',
-    paddingBottom : 80
+    backgroundColor: '#FFFFFF',
   },
-
+  scrollContent: {
+    paddingHorizontal: 25,
+    paddingBottom: 40,
+  },
+  header: {
+    alignItems: 'center',
+    marginTop: 40,
+    marginBottom: 30,
+  },
+  logoCircle: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#FFF3E0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    elevation: 4,
+    shadowColor: '#FF5722',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+  },
   title: {
-    fontSize: 26,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginTop: 30,
-    color: "#111",
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#2D3436',
+    marginBottom: 8,
   },
-
   subtitle: {
-    textAlign: "center",
-    color: "#666",
-    marginBottom: 10,
+    fontSize: 14,
+    color: '#636E72',
+    textAlign: 'center',
   },
-
+  formContainer: {
+    marginTop: 10,
+  },
+  inputGroup: {
+    marginBottom: 20,
+  },
   label: {
     fontSize: 14,
-    color: "#555",
-    marginTop: 10,
+    fontWeight: '700',
+    color: '#2D3436',
+    marginBottom: 8,
+    marginLeft: 4,
   },
-
-  input: {
-  
-    
-    marginTop: 5,
-    height: 48,
-    borderWidth: 1,
-    borderColor: '#878382',
-    borderRadius: 10,
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F8F9FA',
+    borderRadius: 15,
+    borderWidth: 1.5,
+    borderColor: '#F1F3F5',
     paddingHorizontal: 15,
-    fontSize: 14,
-    backgroundColor: '#fff',
+    height: 55,
   },
-
-  passwordRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    backgroundColor: '#fff',
-    borderColor: '#878382',
-     borderRadius: 10,
-    paddingRight: 15,
-    marginTop: 5,
+  inputErrorBorder: {
+    borderColor: '#FF0000',
+    backgroundColor: '#FFF5F5',
   },
-
-  passwordInput: {
-    flex: 1,
-    fontSize: 14,
-    
-    
-    height: 48,
-    paddingHorizontal: 15,
+  icon: {
+    marginRight: 12,
   },
-
-  eyeIcon: {
-    fontSize: 18,
-    color: "#777",
-  },
-
-  checkboxRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 12,
-    marginBottom: 10,
-  },
-
-  checkbox: {
-    width: 18,
-    height: 18,
-    borderColor: '#878382',
-    borderWidth: 2,
-    borderRadius: 3,
-    marginRight: 10,
-  },
-
-  checkboxText: {
-    fontSize: 13,
-    color: "#555",
-    flex: 1,
-  },
-
-  link: {
-    color: "orange",
-    textDecorationLine: "underline",
-  },
-
-  signupBtn: {
-    backgroundColor: "orange",
-    padding: 16,
-    borderRadius: 30,
-    alignItems: "center",
-    marginTop: 10,
-  },
-
-  signupBtnText: {
-    color: "white",
+   input: {
+    flex: 1, // This ensures the input takes up all space and pushes the eye to the right
     fontSize: 16,
-    fontWeight: "bold",
+    color: '#2D3436',
+    fontWeight: '500',
+    height: '100%',
   },
-
-  dividerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 25,
+  eyeIcon: {
+    padding: 5, // Increases touchable area for better UX
   },
-
-  line: {
-    flex: 1,
-    height: 1,
-    backgroundColor: "#ddd",
+  errorText: {
+    color: '#FF0000',
+    fontSize: 12,
+    marginTop: 6,
+    marginLeft: 4,
+    fontWeight: '600',
   },
-
-  orText: {
-    marginHorizontal: 10,
-    color: "#777",
+  button: {
+    backgroundColor: '#FF5722',
+    height: 60,
+    borderRadius: 15,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    elevation: 6,
+    shadowColor: '#FF5722',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
   },
-
-  googleBtn: {
-    flexDirection: "row",
-    backgroundColor: "#eee",
-    padding: 14,
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  googleIcon: {
-    width: 22,
-    height: 22,
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '800',
+    letterSpacing: 1,
     marginRight: 10,
   },
-
-  googleText: {
-    fontSize: 15,
+  footerLink: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 25,
   },
-
-  bottomText: {
-    textAlign: "center",
-    marginTop: 10,
-    color: "#777",
+  footerText: {
+    color: '#636E72',
+    fontSize: 14,
   },
-
-  signInLink: {
-    color: "orange",
-    fontWeight: "bold",
+  loginText: {
+    color: '#FF5722',
+    fontWeight: '700',
+    fontSize: 14,
   },
 });

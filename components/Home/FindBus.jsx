@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Ionicons } from "@expo/vector-icons";
 import { styles } from './FindBusStyleSheet'
 import { router, useLocalSearchParams, useRouter } from "expo-router";
 import { searchbus } from '../../axios/searchBus'
 import Spinner from "@/constants/Spinner/Spinner";
 import Toast from "react-native-toast-message";
+import { useDispatch, useSelector } from "react-redux";
+import { addDate } from "@/redux_store/FindBusSlicer";
 
-const FindBus = ({ setLoading }) => {
+const FindBus = () => {
 
     const router = useRouter()
-    const params = useLocalSearchParams()
+    const dispatch = useDispatch()
+    const { from, to, date } = useSelector((state) => state.search)
+    const {status} = useSelector((state) => state.user)
 
-    const [boarding, setBoarding] = useState(params.from ? JSON.parse(params.from) : "")
-    const [destination, setDestination] = useState(params.to ? JSON.parse(params.to) : "")
+    // console.log("From Point " , from)
+    // console.log("To Point " , to)
+
+    const [boarding, setBoarding] = useState(from.length != 0 ? from : "")
+    const [destination, setDestination] = useState(to.length != 0 ? to : "")
 
     const [showCalender, setShowCalender] = useState(false)
-    const [inputDate, setInputDate] = useState(null)
+    const [inputDate, setInputDate] = useState(date.length != 0 ? date : null)
 
     function onReverse() {
         const temp = boarding
@@ -31,7 +38,9 @@ const FindBus = ({ setLoading }) => {
             date.getDate().toString().padStart(2, "0") + "-" +
             (date.getMonth() + 1).toString().padStart(2, "0") + "-" +
             date.getFullYear();
+
         setInputDate(formatted);
+        dispatch(addDate(formatted))
     }
 
     function onClickTommorow() {
@@ -45,6 +54,7 @@ const FindBus = ({ setLoading }) => {
             tomorrow.getFullYear();
 
         setInputDate(formatted);
+        dispatch(addDate(formatted))
     }
 
     const onChangeCalender = (event) => {
@@ -57,6 +67,7 @@ const FindBus = ({ setLoading }) => {
                 (date.getMonth() + 1).toString().padStart(2, "0") + "-" +
                 date.getFullYear();
             setInputDate(formatted);
+            dispatch(addDate(formatted))
             setShowCalender(false);
         } else if (event.type === "dismissed") {
             setShowCalender(false);
@@ -64,125 +75,249 @@ const FindBus = ({ setLoading }) => {
     };
 
     async function handleOnSearch() {
-        console.log("Boarding :- ", boarding)
-        console.log("Destination :- ", destination)
-        console.log("Date :- ", inputDate)
-        try {
-            if (!inputDate || !destination || !boarding){
-                Toast.show({
-                    type: 'error',
-                    text1: 'Incomplete Details',
-                    text2: 'Please select your departure date and destination city.'
-                });
-                return
-            }
 
-            const data = { boarding: boarding?.city, destination: destination?.city, date: inputDate }
-            setLoading(true)
-            const response = await searchbus(data)
-            console.log(response?.data)
-            if (response?.data?.success) {
-                setLoading(false)
-                router.push({
-                    pathname: '/(search)/searchbus', params: {
-                        searchData: JSON.stringify(response?.data?.data)
-                    }
-                })
-            }
-            else {
-                setLoading(false)
-            }
-        } catch (error) {
-            setLoading(false)
-            console.log(error?.message)
+        if (!inputDate || !destination || !boarding) {
+            Toast.show({
+                type: 'error',
+                text1: 'Incomplete Details',
+                text2: 'Please select your departure date and destination city.'
+            });
+            return
         }
+        router.push('/(search)/searchbus')
     }
 
     return (
-        <View style={styles.card}>
-            {/* From */}
-            <TextInput
-                value={boarding?.city || ""}
-                onPress={() => router.push({
-                    pathname: '/(search)/searchLocation', params: {
-                        locationType: "from",
-                        oldData: JSON.stringify(destination)
-                    }
-                })}
-                placeholder="Boarding From"
-                placeholderTextColor="#9e9e9e"
-                onChangeText={text => setBoarding(text)}
-                style={styles.input}
-            />
+        // <View style={styles.card}>
+        //     {/* From */}
+        //     <TextInput
+        //         value={boarding || ""}
+        //         onPress={() => router.push({
+        //             pathname: '/(search)/searchLocation', params: {
+        //                 locationType: "from",
+        //                 // oldData: JSON.stringify(destination)
+        //             }
+        //         })}
+        //         placeholder="Boarding From"
+        //         placeholderTextColor="#9e9e9e"
+        //         onChangeText={text => setBoarding(text)}
+        //         style={styles.input}
+        //     />
 
-            {/* To */}
-            <TextInput
-                value={destination?.city || ""}
-                onPress={() => router.push({
-                    pathname: '/(search)/searchLocation', params:
-                    {
-                        locationType: "to",
-                        oldData: JSON.stringify(boarding)
-                    }
-                })}
-                placeholder="Where are you going?"
-                placeholderTextColor="#9e9e9e"
-                onChangeText={text => setDestination(text)}
-                style={styles.input}
-            />
+        //     {/* To */}
+        //     <TextInput
+        //         value={destination || ""}
+        //         onPress={() => router.push({
+        //             pathname: '/(search)/searchLocation', params:
+        //             {
+        //                 locationType: "to",
+        //                 // oldData: JSON.stringify(boarding)
+        //             }
+        //         })}
+        //         placeholder="Where are you going?"
+        //         placeholderTextColor="#9e9e9e"
+        //         onChangeText={text => setDestination(text)}
+        //         style={styles.input}
+        //     />
 
-            {/* Reverse Icon */}
-            <TouchableOpacity
-                style={styles.reverseBtn}
-                onPress={onReverse}
-            >
-                <Ionicons name="swap-vertical" size={22} color="orange" />
-            </TouchableOpacity>
+        //     {/* Reverse Icon */}
+        //     <TouchableOpacity
+        //         style={styles.reverseBtn}
+        //         onPress={onReverse}
+        //     >
+        //         <Ionicons name="swap-vertical" size={22} color="orange" />
+        //     </TouchableOpacity>
 
-            {/* Date buttons */}
-            <View style={styles.dateRow}>
-                <TouchableOpacity
-                    style={styles.dateBtn}
-                    onPress={onClickToday}
-                >
-                    <Text style={styles.dateText}>Today</Text>
-                </TouchableOpacity>
+        //     {/* Date buttons */}
+        //     <View style={styles.dateRow}>
+        //         <TouchableOpacity
+        //             style={styles.dateBtn}
+        //             onPress={onClickToday}
+        //         >
+        //             <Text style={styles.dateText}>Today</Text>
+        //         </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={styles.dateBtn}
-                    onPress={onClickTommorow}
-                >
-                    <Text style={styles.dateText}>Tomorrow</Text>
-                </TouchableOpacity>
+        //         <TouchableOpacity
+        //             style={styles.dateBtn}
+        //             onPress={onClickTommorow}
+        //         >
+        //             <Text style={styles.dateText}>Tomorrow</Text>
+        //         </TouchableOpacity>
 
-                {/* Calendar Button */}
-                <TouchableOpacity
-                    style={styles.dateBtn}
-                    onPress={() => setShowCalender(true)}
-                >
-                    {inputDate ? <Text style={styles.dateText}>{inputDate} </Text> : <Ionicons name="calendar" size={20} color="#fff" />}
-                </TouchableOpacity>
+        //         {/* Calendar Button */}
+        //         <TouchableOpacity
+        //             style={styles.dateBtn}
+        //             onPress={() => setShowCalender(true)}
+        //         >
+        //             {inputDate ? <Text style={styles.dateText}>{inputDate} </Text> : <Ionicons name="calendar" size={20} color="#fff" />}
+        //         </TouchableOpacity>
+        //     </View>
+
+        //     {/* Date Picker */}
+        //     {showCalender && (
+        //         <DateTimePicker
+        //             value={new Date()}
+        //             mode="date"
+        //             display="default"
+        //             onChange={onChangeCalender}
+        //         />
+        //     )}
+
+        //     {/* Find Bus */}
+        //     <TouchableOpacity
+        //         style={styles.findButton}
+        //         onPress={() => handleOnSearch()}
+        //     >
+        //         <Text style={styles.findButtonText}>Find Buses</Text>
+        //     </TouchableOpacity>
+
+        // </View>
+
+        <View style={styles.mainContainer}>
+            {/* 1️⃣ Header Section */}
+            <View style={styles.orangeHeader}>
+                <View style={styles.headerTopRow}>
+                    <Text style={styles.logoText}>Express<Text style={styles.logoBold}>Way </Text></Text>
+                    <TouchableOpacity style={styles.profileCircle} onPress={() => {
+                        if(status)
+                        router.push('/(account)/personalDetails')
+                        }}>
+                        <Ionicons name="person" size={20} color="#FF5722" />
+                    </TouchableOpacity>
+                </View>
+                <Text style={styles.headerTagline}>Where would you like to go?</Text>
             </View>
 
-            {/* Date Picker */}
-            {showCalender && (
-                <DateTimePicker
-                    value={new Date()}
-                    mode="date"
-                    display="default"
-                    onChange={onChangeCalender}
-                />
-            )}
+            {/* 2️⃣ Search Bus Box (Floating Card) */}
+            <View style={styles.cardWrapper}>
+                <View style={styles.card}>
 
-            {/* Find Bus */}
-            <TouchableOpacity
-                style={styles.findButton}
-                onPress={() => handleOnSearch()}
-            >
-                <Text style={styles.findButtonText}>Find Buses</Text>
-            </TouchableOpacity>
+                    {/* Input Section */}
+                    <View style={styles.inputsWrapper}>
+                        {/* From Input */}
+                        <View style={styles.inputRow}>
+                            <MaterialCommunityIcons name="circle-slice-8" size={18} color="#FF5722" />
+                            <View style={styles.textInputContainer}>
+                                <Text style={styles.inputLabel}>From</Text>
+                                <TextInput
+                                    value={boarding || ""}
+                                    onPress={() => router.push({
+                                        pathname: '/(search)/searchLocation', params: {
+                                            locationType: "from",
+                                        }
+                                    })}
+                                    placeholder="Boarding From"
+                                    placeholderTextColor="#9e9e9e"
+                                    onChangeText={text => setBoarding(text)}
+                                    style={styles.input}
+                                />
+                            </View>
+                        </View>
 
+                        {/* Visual Divider Line */}
+                        <View style={styles.verticalLine} />
+
+                        {/* Reverse Icon (Redesigned & Positioned) */}
+                        <TouchableOpacity
+                            style={styles.reverseBtn}
+                            onPress={onReverse}
+                            activeOpacity={0.8}
+                        >
+                            <Ionicons name="swap-vertical" size={20} color="#FFF" />
+                        </TouchableOpacity>
+
+                        {/* To Input */}
+                        <View style={[styles.inputRow, { marginTop: 10 }]}>
+                            <MaterialIcons name="location-on" size={20} color="#4CAF50" />
+                            <View style={styles.textInputContainer}>
+                                <Text style={styles.inputLabel}>To</Text>
+                                <TextInput
+                                    value={destination || ""}
+                                    onPress={() => router.push({
+                                        pathname: '/(search)/searchLocation', params:
+                                        {
+                                            locationType: "to",
+                                        }
+                                    })}
+                                    placeholder="Where are you going?"
+                                    placeholderTextColor="#9e9e9e"
+                                    onChangeText={text => setDestination(text)}
+                                    style={styles.input}
+                                />
+                            </View>
+                        </View>
+                    </View>
+
+                    {/* Date Section Wrapper */}
+                    <View style={styles.dateSection}>
+                        <Text style={styles.inputLabel}>Departure Date</Text>
+
+                        {/* Row 1: Quick Select Buttons */}
+                        <View style={styles.quickDateRow}>
+                            <TouchableOpacity
+                                style={styles.quickDateBtn}
+                                onPress={onClickToday}
+                                activeOpacity={0.7}
+                            >
+                                <Text style={styles.quickDateText}>Today</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={styles.quickDateBtn}
+                                onPress={onClickTommorow}
+                                activeOpacity={0.7}
+                            >
+                                <Text style={styles.quickDateText}>Tomorrow</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        {/* Row 2: Main Date Selector Display */}
+                        <TouchableOpacity
+                            style={styles.fullDateDisplay}
+                            onPress={() => setShowCalender(true)}
+                            activeOpacity={0.8}
+                        >
+                            <View style={styles.dateInfoLeft}>
+                                <View style={styles.calendarIconBg}>
+                                    <Ionicons name="calendar" size={20} color="#FF5722" />
+                                </View>
+                                <View style={styles.dateTextContainer}>
+                                    <Text style={styles.dateValueText}>
+                                        {inputDate ? inputDate : "Select Journey Date"}
+                                    </Text>
+                                </View>
+                            </View>
+                            <Ionicons name="chevron-forward" size={20} color="#ADB5BD" />
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Date Picker Logic (Unchanged) */}
+                    {showCalender && (
+                        <DateTimePicker
+                            value={new Date()}
+                            mode="date"
+                            display="default"
+                            minimumDate={new Date()}
+                            onChange={onChangeCalender}
+                        />
+                    )}
+
+                    {/* Find Bus Button */}
+                    <TouchableOpacity
+                        style={styles.findButton}
+                        onPress={() => handleOnSearch()}
+                        activeOpacity={0.9}
+                    >
+                        <Text style={styles.findButtonText}>Find Buses</Text>
+                        <MaterialIcons name="arrow-forward" size={20} color="#FFF" style={{ marginLeft: 10 }} />
+                    </TouchableOpacity>
+
+                </View>
+            </View>
         </View>
+
+
+
     )
 }
 

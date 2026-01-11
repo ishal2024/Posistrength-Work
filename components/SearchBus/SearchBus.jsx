@@ -4,33 +4,52 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { styles } from "./SearchBusStyleSheets";
 import BusRouteCard from './BusRouteCard'
-import { busData } from "./BusData"
+
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import Filter from '../Filter/Filter'
 import BottomSheet from "../Filter/BottomSheet";
+import NoBusFound from './NoBusFound'
+import { useSelector } from "react-redux";
+import {searchbus} from '../../axios/searchBus'
+import SkeletonBlock from '../../constants/SkeletonBlock'
 
 const SearchBus = () => {
 
-  const router = useRouter()
+  // const router = useRouter()
   const [isFilterOpen, setFilterOpen] = useState(false)
-  const { searchData } = useLocalSearchParams()
+  const { from, to, date } = useSelector((state) => state.search)
+  const [loader , setLoader] = useState(true)
 
   // Search Data
-  const [routeData, setRouteData] = useState([])
   const [busesData, setBusesData] = useState([])
 
-  function setSearchData() {
-    const response = JSON.parse(searchData)
-    setRouteData([response.origin_city, response.destination_city, { travel_date: response?.travel_date }])
-    setBusesData(response?.schedules)
+  async function fetchBusData() {
+    try {
+      const data = {boarding: from, destination: to, date: date}
+      // setLoader(true)
+      const response = await searchbus(data)
+      console.log(response?.data)
+      if (response?.data?.success) {
+        setBusesData(response?.data?.data?.schedules)
+        setLoader(false)
+      }
+      else {
+        setLoader(false)
+      }
+    } catch (error) {
+       console.log(error?.message)
+       setLoader(false)
+    }
   }
 
   useEffect(() => {
-    setSearchData()
-  }, [searchData])
+    if(from && to && date){
+       fetchBusData()
+    }
+  }, [])
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff7f1" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
 
       {/* Bottom Sheet Fol Filter */}
       <BottomSheet visible={isFilterOpen} onClose={() => setFilterOpen(false)}>
@@ -48,17 +67,17 @@ const SearchBus = () => {
 
 
           <View style={styles.routeRow}>
-            <Text style={styles.routeText}>{routeData[0]?.name}</Text>
+            <Text style={styles.routeText}>{from}</Text>
 
             <View style={styles.swapCircle}>
               <Text style={styles.swapIcon}>⇆</Text>
             </View>
 
-            <Text style={styles.routeText}>{routeData[1]?.name}</Text>
+            <Text style={styles.routeText}>{to}</Text>
           </View>
 
           <TouchableOpacity style={styles.dateBox}>
-            <Text style={styles.dateText}>{routeData[2]?.travel_date}</Text>
+            <Text style={styles.dateText}>{date}</Text>
           </TouchableOpacity>
         </View>
 
@@ -76,17 +95,21 @@ const SearchBus = () => {
 
         </View>
 
+        {/* Skeleton Loader */}
+        {loader && <SkeletonBlock />}
+
         {/* Bus Route Cards */}
 
         <View>
           {busesData.map((val) => {
             return (
 
-              <BusRouteCard cardData={val} routeDetail = {{departure : routeData[0]?.name , origin : routeData[1]?.name}} />
+              <BusRouteCard cardData={val} routeDetail={{ departure: from, origin: to }} />
             )
           })}
         </View>
 
+        {busesData.length == 0 && <NoBusFound />}
 
 
       </ScrollView>

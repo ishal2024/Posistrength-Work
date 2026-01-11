@@ -1,88 +1,101 @@
 import React, { useState } from 'react';
-import Checkbox from 'expo-checkbox';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView } from "react-native";
-import { styles } from './SignupStyleSheets'
-import { router, useRouter } from 'expo-router';
-import { registerUser } from '../../../axios/userAuth'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+
+  KeyboardAvoidingView,
+  Platform,
+  StatusBar,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import PasswordStrengthChecker from './PasswordStrengthChecker'
+import { styles } from './SignupStyleSheets'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { registerUser } from '../../../axios/userAuth'
 import Toast from 'react-native-toast-message'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addUserData } from '@/redux_store/UserDataSlicer';
 import Spinner from '@/constants/Spinner/Spinner';
+import ErrorDialogBox from '../../../constants/Dialogs/ErrorDialogBox'
 
-export default function Signup() {
+export const SignUpScreen = () => {
 
-  const [checked, isChecked] = useState(false)
   const [isSpinnerOpen, setSpinnerOpen] = useState(false)
   const dispatch = useDispatch()
   const router = useRouter()
 
-  // useState For user Authentication
+  // --- Error Dialog Box ---
+  const [errorTitle, setErrorTitle] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  // --- Form States ---
   const [name, setName] = useState("")
   const [contact, setContact] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
-  //Password Strength
-  function isPasswordStrong(password) {
-    const hasMinLength = password.length >= 8;
-    const hasUppercase = password.toLowerCase() !== password;
-    const hasNumber = password.split("").some((ch) => "0123456789".includes(ch));
-    const specialChars = "!@#$%^&*()_+=-{}[]|:;'<>,.?/~`";
-    const hasSpecial = password.split("").some((ch) => specialChars.includes(ch));
-    if (hasMinLength && hasUppercase && hasNumber && hasSpecial)
-      return false
-    else
-      return true
-  }
+  // --- Validation States ---
+  const [emailError, setEmailError] = useState('');
+  const [contactError, setContactError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmError, setConfirmError] = useState('');
 
-  function checkUserData(data) {
-    if (
-      data.name.length === 0 ||
-      data.email.length === 0 ||
-      data.password.length === 0 ||
-      data.password_confirmation.length === 0
-    ) {
-      Toast.show({
-        type: "error",
-        text1: "Invalid Input",
-        text2: "Please fill all required fields.",
-      });
-      return true;
-    }
-    
-    if(data.contact.length !== 10){
-      Toast.show({
-        type: "error",
-        text1: "Invalid Phone Number",
-        text2: "Phone Number should be of 10 digit",
-      });
-      return true;
-    }
+  // --- Real-time Validation Logic ---
 
-    if (data.password !== data.password_confirmation) {
-      Toast.show({
-        type: "error",
-        text1: "Invalid Confirm Password",
-        text2: "Password and Confirm Password must be same.",
-      });
-      return true;
+  const validateEmail = (text) => {
+    setEmail(text);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (text.length > 0 && !emailRegex.test(text)) {
+      setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
     }
+  };
 
-    if (isPasswordStrong(data.password)) {
-      Toast.show({
-        type: "error",
-        text1: "Weak Password",
-        text2: "Must include uppercase, number & special character.",
-      });
-      return true;
+  const validateContact = (text) => {
+    setContact(text);
+    // Standard 10-digit validation
+    const contactRegex = /^[0-9]{10}$/;
+    if (text.length > 0 && !contactRegex.test(text)) {
+      setContactError('Enter a valid 10-digit mobile number');
+    } else {
+      setContactError('');
     }
+  };
 
-    return false;
-  }
+  const validatePassword = (text) => {
+    setPassword(text);
+    const hasUpper = /[A-Z]/.test(text);
+    const hasLower = /[a-z]/.test(text);
+    const hasNumber = /[0-9]/.test(text);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(text);
+    const hasLength = text.length > 8;
+
+    if (text.length > 0 && (!hasUpper || !hasLower || !hasNumber || !hasSpecial || !hasLength)) {
+      setPasswordError('Must have 8+ chars, 1 uppercase, 1 number & 1 special char');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  const validateConfirmPassword = (text) => {
+    setConfirmPassword(text);
+    if (text.length > 0 && text !== password) {
+      setConfirmError('Passwords do not match');
+    } else {
+      setConfirmError('');
+    }
+  };
+
+
   async function handleRegisterUser() {
     try {
       const data = {
@@ -90,16 +103,28 @@ export default function Signup() {
         contact,
         email,
         password,
-        password_confirmation : confirmPassword
+        password_confirmation: confirmPassword
       }
-  
-      if (checkUserData(data)) return
+
       setSpinnerOpen(true)
+
+      if (name.length == 0 || contact.length == 0 || email.length == 0 || password.length == 0 || confirmPassword.length == 0 ||
+        emailError.length != 0 || contactError.length != 0 || passwordError.length != 0 || confirmError.length != 0) {
+        setErrorTitle("Input Field Error")
+        setErrorMessage("Please fill all the required input fields")
+        setSpinnerOpen(false)
+        return
+      }
 
       const response = await registerUser(data)
 
-      if(response?.data?.status){
-        await AsyncStorage.setItem('token' , response?.data?.token)
+      if (response?.data?.status) {
+        const user = {
+          status : true,
+          userData : response?.data?.user,
+          token : response?.data?.token
+        }
+        await AsyncStorage.setItem('user', JSON.stringify)
         dispatch(addUserData(response?.data?.user))
         setSpinnerOpen(false)
         router.replace('/(tabs)/')
@@ -109,116 +134,164 @@ export default function Signup() {
 
     } catch (error) {
       setSpinnerOpen(false)
-      Toast.show({
-        type: "error",
-        text1: "Internal Server Error",
-        text2: error?.message,
-      });
+      setErrorTitle("Internal Server Error")
+      setErrorMessage(error?.response?.data?.message)
     }
   }
 
   return (
-    <>
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       {/* Loading Spinner */}
       {isSpinnerOpen && <Spinner />}
 
-      <ScrollView >
+      {/* Error Dilaog Box */}
+      {errorTitle && <ErrorDialogBox title={errorTitle} message={errorMessage}
+        onCancel={() => {
+          setErrorMessage(false)
+          setErrorTitle(false)
+        }}
+      />}
+      <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
 
-        <View style={styles.container}>
-          <Text style={styles.title}>Create an account</Text>
-          <Text style={styles.subtitle}>Welcome back to the app</Text>
-
-          {/* Name */}
-          <Text style={styles.label}>Name</Text>
-          <TextInput
-            style={styles.input}
-            value={name}
-            onChangeText={(text) => setName(text)}
-            placeholder="John Doe"
-            placeholderTextColor="#999" />
-
-          {/* Email */}
-          <Text style={styles.label}>Email Address</Text>
-          <TextInput style={styles.input}
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            placeholder="hello@example.com"
-            placeholderTextColor="#999" />
-
-          {/* Contact */}
-          <Text style={styles.label}>Contact Number</Text>
-          <TextInput style={styles.input}
-            value={contact}
-            onChangeText={(text) => setContact(text)}
-            placeholder="+91 9876543210"
-            placeholderTextColor="#999" />
-
-          {/* Password */}
-          <Text style={styles.label}>Password</Text>
-          <View style={styles.passwordRow}>
-            <PasswordStrengthChecker password={password} setPassword={setPassword} />
+          {/* Header Section */}
+          <View style={styles.header}>
+            <View style={styles.logoCircle}>
+              <MaterialCommunityIcons name="bus-side" size={40} color="#FF5722" />
+            </View>
+            <Text style={styles.title}>Create Account</Text>
+            <Text style={styles.subtitle}>Join GoBus and start your journey today</Text>
           </View>
 
-          <Text style={styles.label}>Confirm Password</Text>
-          <View style={styles.passwordRow}>
-            <TextInput
-              value={confirmPassword}
-              onChangeText={(text) => setConfirmPassword(text)}
-              style={styles.passwordInput}
-              placeholder="•••••••••••••"
-              placeholderTextColor="#999"
-            />
+          {/* Form Section */}
+          <View style={styles.formContainer}>
+
+            {/* Full Name */}
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Full Name</Text>
+              <View style={styles.inputWrapper}>
+                <Ionicons name="person-outline" size={20} color="#666" style={styles.icon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="John Doe"
+                  value={name}
+                  onChangeText={setName}
+                />
+              </View>
+            </View>
+
+            {/* Contact Number */}
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Contact Number</Text>
+              <View style={[styles.inputWrapper, contactError ? styles.inputErrorBorder : null]}>
+                <Ionicons name="call-outline" size={20} color="#666" style={styles.icon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="9876543210"
+                  keyboardType="phone-pad"
+                  maxLength={10}
+                  value={contact}
+                  onChangeText={validateContact}
+                />
+              </View>
+              {contactError ? <Text style={styles.errorText}>{contactError}</Text> : null}
+            </View>
+
+            {/* Email Address */}
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Email Address</Text>
+              <View style={[styles.inputWrapper, emailError ? styles.inputErrorBorder : null]}>
+                <Ionicons name="mail-outline" size={20} color="#666" style={styles.icon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="example@mail.com"
+                  autoCapitalize="none"
+                  keyboardType="email-address"
+                  value={email}
+                  onChangeText={validateEmail}
+                />
+              </View>
+              {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+            </View>
+
+            {/* Password */}
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Password</Text>
+              <View style={[styles.inputWrapper, passwordError ? styles.inputErrorBorder : null]}>
+                <Ionicons name="lock-closed-outline" size={20} color="#666" style={styles.icon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="••••••••"
+                  secureTextEntry={!showPassword} // Toggles visibility
+                  value={password}
+                  onChangeText={validatePassword}
+                />
+                <TouchableOpacity
+                  onPress={() => setShowPassword(!showPassword)}
+                  style={styles.eyeIcon}
+                >
+                  <Ionicons
+                    name={showPassword ? "eye-off-outline" : "eye-outline"}
+                    size={22}
+                    color="#9E9E9E"
+                  />
+                </TouchableOpacity>
+              </View>
+              {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
+            </View>
+
+            {/* Confirm Password */}
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Confirm Password</Text>
+              <View style={[styles.inputWrapper, confirmError ? styles.inputErrorBorder : null]}>
+                <Ionicons name="shield-checkmark-outline" size={20} color="#666" style={styles.icon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="••••••••"
+                  secureTextEntry={!showConfirmPassword} // Toggles visibility
+                  value={confirmPassword}
+                  onChangeText={validateConfirmPassword}
+                />
+                <TouchableOpacity
+                  onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                  style={styles.eyeIcon}
+                >
+                  <Ionicons
+                    name={showConfirmPassword ? "eye-off-outline" : "eye-outline"}
+                    size={22}
+                    color="#9E9E9E"
+                  />
+                </TouchableOpacity>
+              </View>
+              {confirmError ? <Text style={styles.errorText}>{confirmError}</Text> : null}
+            </View>
+            {/* Create Account Button */}
+            <TouchableOpacity
+              style={styles.button}
+              activeOpacity={0.8}
+              onPress={handleRegisterUser}
+            >
+              <Text style={styles.buttonText}>CREATE ACCOUNT</Text>
+              <Ionicons name="arrow-forward" size={20} color="#FFF" />
+            </TouchableOpacity>
+
+            <View style={styles.footerLink}>
+              <Text style={styles.footerText}>Already have an account? </Text>
+              <TouchableOpacity onPress={() => router.replace('/login')}>
+                <Text style={styles.loginText}>Login</Text>
+              </TouchableOpacity>
+            </View>
 
           </View>
-
-          {/* Checkbox Row */}
-          <View style={styles.checkboxRow}>
-            <Checkbox
-              value={checked}
-              style={styles.checkbox}
-              onValueChange={isChecked}
-              color={checked ? "#FF9800" : undefined}  // optional orange theme
-            />
-            <Text style={styles.checkboxText}>
-              By continuing, you agree to our <Text style={styles.link}>terms of service</Text>.
-            </Text>
-          </View>
-
-          {/* Signup Button */}
-          <TouchableOpacity
-            onPress={handleRegisterUser}
-            style={styles.signupBtn} >
-            <Text style={styles.signupBtnText}>Sign up</Text>
-          </TouchableOpacity>
-
-          {/* Divider */}
-          <View style={styles.dividerContainer}>
-            <View style={styles.line} />
-            <Text style={styles.orText}>or sign up with </Text>
-            <View style={styles.line} />
-          </View>
-
-          {/* Google Button */}
-          <TouchableOpacity style={styles.googleBtn}>
-            <Image
-              source={{ uri: "https://imgs.search.brave.com/WLFrkfXuPUNV3EJu_ROkxWVin1CUHQZ04BqHJ67iPoo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZS5zaW1pbGFycG5n/LmNvbS9maWxlL3Np/bWlsYXJwbmcvdmVy/eS10aHVtYm5haWwv/MjAyMC8wNi9Mb2dv/LWdvb2dsZS1pY29u/LVBORy5wbmc" }}
-              style={styles.googleIcon}
-            />
-            <Text style={styles.googleText}>Continue with Google </Text>
-          </TouchableOpacity>
-
-          <Text style={styles.bottomText}>
-            Already have an account? <Text
-              style={styles.signInLink}
-              onPress={() => router.push('/login')}
-            >Sign in here</Text>
-          </Text>
-        </View>
-      </ScrollView>
-      </SafeAreaView>
-    </>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+};
 
 
-  )
-}
+export default SignUpScreen;

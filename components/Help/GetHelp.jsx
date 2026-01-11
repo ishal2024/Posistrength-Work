@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons, Entypo, FontAwesome } from "@expo/vector-icons";
 import {styles} from './GetHelpStyleSheet'
+import { contactPageData } from "../../axios/homePage";
 
 const GetHelp = () => {
+
+  const [contactData , setContactData] = useState({})
+
+  async function handleContactFetch(){
+    try {
+      const res = await contactPageData()
+      if(res?.data?.status){
+        setContactData(res?.data?.data?.contact)
+      }
+    } catch (error) {
+      
+    }
+  }
+
+  useEffect(() => {
+    handleContactFetch()
+  } , [])
+
   return (
     <View style={styles.container}>
       {/* Heading */}
@@ -21,7 +40,7 @@ const GetHelp = () => {
           </View>
           <View style={styles.textBox}>
             <Text style={styles.title}>Customer Care</Text>
-            <Text style={styles.phone}>+91 398236645</Text>
+            <Text style={styles.phone}>{contactData?.contact_no}</Text>
             <Text style={styles.subText}>Available 24/7</Text>
           </View>
         </View>
@@ -33,7 +52,7 @@ const GetHelp = () => {
           </View>
           <View style={styles.textBox}>
             <Text style={styles.title}>Email Support</Text>
-            <Text style={styles.email}>posistrength@gmail.com</Text>
+            <Text style={styles.email}>{contactData?.email}</Text>
             <Text style={styles.subText}>Response within 24 hours</Text>
           </View>
         </View>
@@ -46,9 +65,7 @@ const GetHelp = () => {
           <View style={styles.textBox}>
             <Text style={styles.title}>Head Office</Text>
             <Text style={styles.address}>
-              123, Business Tower, MG Road{"\n"}
-              Bangalore, Karnataka - 560001{"\n"}
-              India
+              {contactData?.address}
             </Text>
           </View>
         </View>

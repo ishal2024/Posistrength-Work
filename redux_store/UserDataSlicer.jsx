@@ -13,9 +13,13 @@ const userDataSlicer = createSlice({
             state.userData = action.payload,
             state.status = true
         },
+        removeUser : (state,action) => {
+            state.status = false,
+            state.userData = {}
+        }
     }
 })
 
-export const {addUserData} = userDataSlicer.actions
+export const {addUserData , removeUser} = userDataSlicer.actions
 
 export default userDataSlicer.reducer

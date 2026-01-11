@@ -4,25 +4,50 @@ import { Ionicons } from "@expo/vector-icons";
 import {SafeAreaView} from 'react-native-safe-area-context'
 import {useLocalSearchParams} from 'expo-router'
 import {styles} from './SearchBusLocationStyleSheet'
-import {popularCities , cityDropPoints} from './LocationData'
 import SearchOptions from "./SearchOptions";
 import PopularCities from "./PopularCities";
+import { citiesData } from "../../../axios/homePage";
+import { useSelector } from "react-redux";
 
 export default function SearchBusLocation() {
  
     const [boardingPoints , setBoardingPoints] = useState("")
-    const [locationData , setLocationData] = useState(null)
-    // const {locationType} = useLocalSearchParams()
-    // console.log(locationType)
+    const [locationData , setLocationData] = useState([])
+    const [citiesList , setCitiesList] = useState([])
+  
+    const { locationType } = useLocalSearchParams()
+    const {from , to} = useSelector((state) => state.search)
 
-    function onChangeText(){
-        const filterData = cityDropPoints.filter((location) => location.city.toLowerCase().includes(boardingPoints?.toLowerCase()));
-        setLocationData(filterData || null)
+    function handleChangeText(){
+        const filterData = locationData.filter((location) => location?.name?.toLowerCase().startsWith(boardingPoints.trim().toLowerCase()));
+        setCitiesList(filterData.length ? filterData : [])
+    }
+
+    async function handleCitiesData(){
+      try {
+        const res = await citiesData()
+        if(res?.data?.success){
+          if(locationType == 'from'){
+            const filterData = res?.data?.data.filter((location) => location?.name != to)
+            console.log("Data is Changed of " , to)
+            setLocationData(filterData)
+          }
+          else{
+            const filterData = res?.data?.data.filter((location) => location?.name != from)
+            console.log("Data is Changed of " , from)
+            setLocationData(filterData)
+          }
+        }
+      } catch (error) {
+        console.log(error?.message)
+      }
     }
 
     useEffect(() => {
+      if(!locationData.length)
+      handleCitiesData()
            if(boardingPoints.length != 0)
-           onChangeText()
+           handleChangeText()
     } , [boardingPoints])
 
   return (
@@ -43,8 +68,8 @@ export default function SearchBusLocation() {
       </View>
 
       {
-        locationData ?
-          <SearchOptions locationData = {locationData}   />
+        boardingPoints.length ?
+          <SearchOptions locationData = {citiesList}   />
         : <PopularCities />
     }
 

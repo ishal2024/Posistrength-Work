@@ -43,7 +43,7 @@ export default MyAccountHome;
 const styles = StyleSheet.create({
   safe: {
     // flex: 1,
-
+    backgroundColor : "#fff"
   },
 
   scroll: {
