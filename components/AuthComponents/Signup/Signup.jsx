@@ -124,7 +124,7 @@ export const SignUpScreen = () => {
           userData : response?.data?.user,
           token : response?.data?.token
         }
-        await AsyncStorage.setItem('user', JSON.stringify)
+        await AsyncStorage.setItem('user', JSON.stringify(user))
         dispatch(addUserData(response?.data?.user))
         setSpinnerOpen(false)
         router.replace('/(tabs)/')
