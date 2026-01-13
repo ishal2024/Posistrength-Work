@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Expressway",
-    "slug": "expressway",
+    "slug": "express",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets//images/appLogo.png",
