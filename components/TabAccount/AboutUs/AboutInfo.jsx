@@ -17,7 +17,7 @@ const AboutInfo = () => {
     <View style={styles.container}>
       <Image
         source=
-        {{ uri: aboutData?.about_img[0] }}
+        {require('../../../assets/images/appLogo.png')}
         style={styles.logo}
       />
 

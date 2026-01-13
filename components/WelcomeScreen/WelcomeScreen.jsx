@@ -12,7 +12,7 @@ export default function WelcomeScreen() {
       >
       Skip</Text>
       <Image
-        source={{uri : 'https://imgs.search.brave.com/INlEiuBCnZS9in0s8mBrhMwl34uArsnZYL2PHUcUlzY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS12ZWN0/b3IvcmVhbGlzdGlj/LWJ1cy12ZWN0b3It/aWxsdXN0cmF0aW9u/LWNvbmNlcHRfMTI1/MzIwMi0xOTE3Mi5q/cGc_c2VtdD1haXNf/aHlicmlkJnc9NzQw/JnE9ODA'}}
+        source={require('../../assets/images/appLogo.png')}
         style={styles.busImage}
         resizeMode="contain"
       />

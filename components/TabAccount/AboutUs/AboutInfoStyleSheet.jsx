@@ -6,8 +6,8 @@ export const styles = StyleSheet.create({
     padding: 20,
   },
   logo: {
-    width: 120,
-    height: 120,
+    width: 150,
+    height: 150,
     resizeMode: "contain",
     marginBottom: 20,
     borderRadius: 60,

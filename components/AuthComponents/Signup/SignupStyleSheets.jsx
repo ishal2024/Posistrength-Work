@@ -16,18 +16,14 @@ export const styles = StyleSheet.create({
     marginBottom: 30,
   },
   logoCircle: {
-    width: 80,
+    width: 140,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#FFF3E0',
+    // backgroundColor: '#FFF3E0',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
-    elevation: 4,
-    shadowColor: '#FF5722',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
+    marginBottom: 10,
+  
   },
   title: {
     fontSize: 28,

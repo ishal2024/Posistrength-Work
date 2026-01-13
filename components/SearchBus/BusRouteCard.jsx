@@ -27,8 +27,8 @@ const BusRouteCard = ({ cardData, routeDetail }) => {
       {/* TOP ROW */}
       <View style={styles.topRow}>
         <View>
-          <Text style={styles.busName}>{cardData.bus.name} </Text>
-          <Text style={styles.busSub}>{cardData.bus_type}</Text>
+          <Text style={styles.busName}>{cardData?.bus?.name} </Text>
+          <Text style={styles.busSub}>{cardData?.bus_type}</Text>
         </View>
 
         <TouchableOpacity style={styles.distanceBadge}>
@@ -46,8 +46,8 @@ const BusRouteCard = ({ cardData, routeDetail }) => {
       {/* TIME ROW */}
       <View style={styles.timeRow}>
         <View style={styles.cityBox}>
-          <Text style={styles.timeText}>{cardData.departure_time.slice(0, 5)} </Text>
-          <Text style={styles.cityText}>{routeDetail.departure} </Text>
+          <Text style={styles.timeText}>{cardData?.departure_time.slice(0, 5)} </Text>
+          <Text style={styles.cityText}>{routeDetail?.departure} </Text>
         </View>
 
         <View style={styles.durationBox}>
@@ -66,12 +66,12 @@ const BusRouteCard = ({ cardData, routeDetail }) => {
         <View style={styles.seatBox}>
           <MaterialCommunityIcons name="seat-outline" size={18} color="#059f03ff" />
           <Text style={styles.seatText}>
-            {cardData.available_seats} seats left
+            {cardData?.available_seats} seats left
           </Text>
         </View>
 
         <View style={styles.priceBox}>
-          <Text style={styles.price}>₹{cardData.route.base_fare}</Text>
+          <Text style={styles.price}>₹{cardData?.route.base_fare}</Text>
           <Text style={styles.perSeat}>per seat </Text>
         </View>
       </View>

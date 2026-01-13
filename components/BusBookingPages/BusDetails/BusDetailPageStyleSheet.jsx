@@ -358,4 +358,53 @@ distanceText: {
     marginTop: 4,
   },
 
+  //Accordin Od Dropping and Boarding Points
+    accordcontainer : {
+    marginVertical: 10,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    // Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    // Elevation for Android
+    elevation: 4,
+    overflow: 'hidden',
+    },
+  accordheader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    backgroundColor: '#FFFFFF',
+  },
+  accordheaderActive: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#F1F3F5',
+  },
+  accordheaderTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  accordiconCircle: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#FFF3E0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  accordheaderTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#2D3436',
+  },
+  accordcontent: {
+    paddingTop: 20,
+    paddingHorizontal: 16,
+    paddingBottom: 10,
+  },
+
 });

@@ -10,10 +10,7 @@ export default function SelectedSeats() {
     const {selectedSeats} = useSelector((state) => state.booking)
     const dispatch = useDispatch()
 
-    function removeSeat(seat){
-        const filterSeats = selectedSeats.filter((s) => s.number !== seat.number)
-        dispatch(addData({dataType : 'selectedSeats' , data : filterSeats}))
-    }
+
 
     return (
         <View style={styles.wrap}>

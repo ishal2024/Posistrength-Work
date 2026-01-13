@@ -1,167 +1,382 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  seatContainer: {
-  marginTop: 20,
-  backgroundColor: '#f6f4f4ff',
-  padding: 15,
-  borderRadius: 12,
-  elevation: 3,
-},
+//   seatContainer: {
+//   marginTop: 20,
+//   backgroundColor: '#f6f4f4ff',
+//   padding: 15,
+//   borderRadius: 12,
+//   elevation: 3,
+// },
 
 
+//   layoutHeader: {
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//     alignItems: "center",
+//     marginBottom: 30,
+//   },
+
+
+
+
+//   title: {
+//     fontSize: 20,
+//     fontWeight: "700",
+
+//     color: "#222",
+//   },
+
+//   busHeader: {
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//     marginBottom: 20,
+//     paddingHorizontal: 5
+//   },
+
+//   deckSection: {
+//     flexDirection: "row",
+//     columnGap: 5,
+//   },
+
+//   deck: {
+//     paddingVertical: 4,
+//     paddingHorizontal: 6,
+//     borderRadius: 10,
+//     borderWidth: 1.2,
+//     borderColor: "#ccc",
+//     backgroundColor: "#fff",
+//   },
+
+//   activeDeck: {
+//     borderRadius: 10,
+//     borderWidth: 1.2,
+//     backgroundColor: "#FF8C00",  // Orange theme
+//     borderColor: "#FF8C00",
+//   },
+
+//   deckText: {
+//     fontSize: 10,
+//     color: "#444",
+//     fontWeight: "600",
+//   },
+
+//   activeDeckText: {
+//     color: "#fff",
+//   },
+
+//   // row: {
+//   //   flexDirection: "row",
+//   //   justifyContent: "space-between",
+//   //   marginBottom: 12,
+//   // },
+
+//   legendRow: {
+//     flexDirection: "row",
+//     justifyContent: "space-around",
+//     marginTop: 20,
+//   },
+
+//   legendItem: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//   },
+
+//   dot: {
+//     width: 14,
+//     height: 14,
+//     borderRadius: 10,
+//     marginRight: 6,
+//   },
+
+//   legendLabel: {
+//     fontSize: 14,
+//     color: "#555",
+//   },
+
+//   // Seat Layout Styles
+
+//   deck: {
+//     padding: 10,
+//   },
+
+//   row: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     justifyContent: 'space-between',
+//     marginBottom: 14,
+//   },
+
+//   aisle: {
+//     width: 24,
+//   },
+
+//   /* LEFT – BIG SLEEPER */
+//   sleeperSeat: {
+//     width: 90,
+//     height: 44,
+//     backgroundColor: '#F5F5F5',
+//     borderRadius: 8,
+//     borderWidth: 1,
+//     borderColor: '#D0D0D0',
+
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     justifyContent: 'space-around',
+//   },
+
+//   /* RIGHT GROUP */
+//   rightGroup: {
+//     flexDirection: 'row',
+//     gap: 10,
+//   },
+
+//   /* SEATER */
+//   seaterSeat: {
+//     width: 44,
+//     height: 44,
+//    backgroundColor: '#F5F5F5',
+// borderRadius: 8,
+// borderWidth: 1,
+// borderColor: '#D0D0D0',
+
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+
+//   /* RIGHT SIDE SLEEPER */
+//   sleeperSeatSmall: {
+//     width: 70,
+//     height: 44,
+//     backgroundColor: '#F5F5F5',
+//     borderRadius: 8,
+//     borderWidth: 1,
+//     borderColor: '#D0D0D0',
+
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     justifyContent: 'space-around',
+//   },
+
+//   seatText: {
+//     fontSize: 10,
+//     fontWeight: '600',
+//   },
+
+mainContainer: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+  },
   layoutHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 30,
-    // borderWidth : 1,
-    // borderColor : "black"
-  },
-
-
-
-
-  title: {
-    fontSize: 20,
-    fontWeight: "700",
-
-    color: "#222",
-  },
-
-  busHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
     marginBottom: 20,
-    paddingHorizontal: 5
   },
-
+  title: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#1A1A1A',
+    marginBottom: 16,
+  },
   deckSection: {
-    flexDirection: "row",
-    columnGap: 5,
+    flexDirection: 'row',
+    backgroundColor: '#F5F5F5',
+    borderRadius: 12,
+    padding: 4,
   },
-
-  deck: {
-    paddingVertical: 4,
-    paddingHorizontal: 6,
+  deckTab: {
+    flex: 1,
+    paddingVertical: 10,
+    alignItems: 'center',
     borderRadius: 10,
-    borderWidth: 1.2,
-    borderColor: "#ccc",
-    backgroundColor: "#fff",
   },
-
-  activeDeck: {
-    borderRadius: 10,
-    borderWidth: 1.2,
-    backgroundColor: "#FF8C00",  // Orange theme
-    borderColor: "#FF8C00",
+  activeDeckTab: {
+    backgroundColor: '#FFFFFF',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
-
   deckText: {
-    fontSize: 10,
-    color: "#444",
-    fontWeight: "600",
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#666',
   },
-
   activeDeckText: {
-    color: "#fff",
+    color: '#FF6B00',
   },
-
-  // row: {
-  //   flexDirection: "row",
-  //   justifyContent: "space-between",
-  //   marginBottom: 12,
-  // },
-
+  busFrame: {
+    borderWidth: 2,
+    borderColor: '#E0E0E0',
+    borderRadius: 20,
+    padding: 12,
+    flex: 1,
+  },
+  steeringRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  entranceDoor: {
+    width: 40,
+    height: 4,
+    backgroundColor: '#EEE',
+    borderRadius: 2,
+  },
+  seatsScroll: {
+    paddingBottom: 20,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+    alignItems: 'center',
+  },
+  seatBase: {
+    flex: 1, // Dynamic width allocation
+    marginHorizontal: 4,
+    paddingVertical: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    borderWidth: 1.5,
+  },
+  seaterDimensions: {
+    aspectRatio: 0.9,
+  },
+  sleeperDimensions: {
+    aspectRatio: 1.8, // Make sleepers look longer
+    flex: 1.5, // Sleepers naturally take a bit more horizontal space
+  },
+  aisleSpace: {
+    flex: 1,
+    marginHorizontal: 4,
+    backgroundColor: 'transparent',
+  },
+  availableSeat: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#E0E0E0',
+  },
+  selectedSeat: {
+    backgroundColor: '#FF6B00',
+    borderColor: '#FF6B00',
+  },
+  bookedSeat: {
+    backgroundColor: '#F5F5F5',
+    borderColor: '#E0E0E0',
+  },
+  seatNumber: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#444',
+    marginTop: 2,
+  },
+  seatPrice: {
+    fontSize: 8,
+    color: '#888',
+  },
+  selectedSeatText: {
+    color: '#FFFFFF',
+  },
   legendRow: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     marginTop: 20,
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: '#EEE',
   },
-
   legendItem: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-
-  dot: {
-    width: 14,
-    height: 14,
-    borderRadius: 10,
+  legendDot: {
+    width: 12,
+    height: 12,
+    borderRadius: 4,
     marginRight: 6,
   },
-
   legendLabel: {
-    fontSize: 14,
-    color: "#555",
+    fontSize: 12,
+    color: '#666',
   },
 
-  // Seat Layout Styles
-
-  deck: {
-    padding: 10,
-  },
-
-  row: {
+   row: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 14,
+    marginBottom: 12,
+    width: '100%',
   },
-
-  aisle: {
-    width: 24,
-  },
-
-  /* LEFT – BIG SLEEPER */
-  sleeperSeat: {
-    width: 90,
-    height: 44,
-    backgroundColor: '#F5F5F5',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#D0D0D0',
-
-    flexDirection: 'row',
+  seatBase: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 2, // Fixed consistent border thickness
+    borderRadius: 6,
+    position: 'relative',
+    padding: 4,
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    marginHorizontal: 4,
   },
-
-  /* RIGHT GROUP */
-  rightGroup: {
+  // Seater: Compact Square/Rounded
+  seaterBase: {
+    flex: 1,
+    aspectRatio: 1,
+    maxWidth: 55,
+  },
+  // Sleeper: Horizontally Elongated (Bed style)
+  sleeperBase: {
+    flex: 2.2, // Takes up more horizontal space than seater
+    height: 50,
     flexDirection: 'row',
-    gap: 10,
+    paddingRight: 10,
   },
-
-  /* SEATER */
-  seaterSeat: {
-    width: 44,
-    height: 44,
-   backgroundColor: '#F5F5F5',
-borderRadius: 8,
-borderWidth: 1,
-borderColor: '#D0D0D0',
-
+  seaterContent: {
     alignItems: 'center',
     justifyContent: 'center',
+    padding : 5
   },
-
-  /* RIGHT SIDE SLEEPER */
-  sleeperSeatSmall: {
-    width: 70,
-    height: 44,
-    backgroundColor: '#F5F5F5',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#D0D0D0',
-
-    flexDirection: 'row',
+  sleeperContent: {
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    width: '100%',
   },
-
-  seatText: {
+  seaterTextGroup: {
+    alignItems: 'center',
+    marginTop: 2,
+  },
+  sleeperTextGroup: {
+    marginLeft: 8,
+    justifyContent: 'center',
+  },
+  seatNumber: {
     fontSize: 10,
+    fontWeight: '700',
+    color: '#333',
+  },
+  seatPrice: {
+    fontSize: 8,
+    color: '#777',
     fontWeight: '600',
   },
+  aisleSpace: {
+    flex: 1, // Matches seater width to keep columns aligned
+    marginHorizontal: 4,
+  },
+  selectedBackground: {
+    backgroundColor: '#FFF8F4', // Subtle tint to show selection inside the border
+  },
+  // Sleeper specific UI element (the "pillow" area)
+  sleeperHeadrest: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    bottom: 0,
+    width: 5,
+    borderTopRightRadius: 3,
+    borderBottomRightRadius: 3,
+    opacity: 0.5,
+  }
 });

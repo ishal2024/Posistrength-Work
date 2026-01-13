@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#F8F9FA',
     flex: 1,
-    marginBottom : 25
+    marginBottom: 25
   },
   // --- Header Styles ---
   orangeHeader: {
@@ -73,7 +73,14 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 6,
   },
+  logo: {
+    width: 150,
+    height: 50,
+    resizeMode: 'contain',
+  },
+
   logoText: {
     fontSize: 24,
     color: '#FFF',
@@ -264,5 +271,5 @@ export const styles = StyleSheet.create({
   },
 
 
-  
+
 });

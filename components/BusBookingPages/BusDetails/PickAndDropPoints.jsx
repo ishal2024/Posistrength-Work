@@ -2,56 +2,42 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import {styles} from './PickAndDropPointsStyleSheet'
+import { useDispatch, useSelector } from "react-redux";
+import {addBoardingPoints , addDroppingPoints} from "../../../redux_store/BookingSlicer"
 
-export default function PickAndDropPoints() {
-  const [selectedPickup, setSelectedPickup] = useState(null);
-  const [selectedDrop, setSelectedDrop] = useState(null);
+export default function PickAndDropPoints({boardingPoints , droppingPoints}) {
 
-  // Example JSON data (later you can replace with API data)
-  const pickupPoints = [{
-      id: 1,
-      title: "New York Central Station",
-      sub: "Gate 5, Platform B",
-      time: "07:00 AM",
-    },
-    {
-      id: 2,
-      title: "Grand Central Terminal",
-      sub: "Bus Bay 3",
-      time: "07:15 AM",
-    },
-  ];
+  const {locations} = useSelector((state) => state?.booking)
+  const dispatch = useDispatch()
+  const [selectedBoarding, setSelectedBoarding] = useState(locations.pickupPoint ? locations.pickupPoint : {});
+  const [selectedDropping, setSelectedDropping] = useState(locations.dropoffPoint ? locations.dropoffPoint : {});
 
-  const dropPoints = [
-    {
-      id: 1,
-      title: "Boston South Station",
-      sub: "Main Terminal",
-      time: "11:30 AM",
-    },
-    {
-      id: 2,
-      title: "Boston Back Bay Station",
-      sub: "Exit Gate 2",
-      time: "11:45 AM",
-    },
-  ];
+  function handleDroppingPointSelection(item){
+       setSelectedDropping(item)
+       dispatch(addDroppingPoints(item))
+  }
+
+  function handleBoardingPointSelection(item){
+       setSelectedBoarding(item)
+       dispatch(addBoardingPoints(item))
+  }
+
 
   return (
     <View style={styles.pointContainer}>
       {/* Pickup Points */}
-      <Text style={styles.pointHeading}>Pickup Points</Text>
+      <Text style={styles.pointHeading}>Boarding Points</Text>
 
-      {pickupPoints.map((item) => (
+      {boardingPoints.map((item) => (
         <TouchableOpacity
           key={item.id}
           style={styles.pointRow}
-          onPress={() => setSelectedPickup(item.id)}
+          onPress={() => handleBoardingPointSelection(item)}
           activeOpacity={0.7}
         >
           {/* Radio */}
           <View style={styles.radioWrap}>
-            {selectedPickup === item.id ? (
+            {selectedBoarding?.location === item.location ? (
               <Feather name="check-circle" size={20} color="#FF8C00" />
             ) : (
               <Feather name="circle" size={20} color="#999" />
@@ -60,8 +46,7 @@ export default function PickAndDropPoints() {
 
           {/* Text Info */}
           <View style={styles.pointTextArea}>
-            <Text style={styles.pointTitle}>{item.title}</Text>
-            <Text style={styles.pointSub}>{item.sub}</Text>
+            <Text style={styles.pointTitle}>{item.location}</Text>
           </View>
 
           {/* Time */}
@@ -71,19 +56,19 @@ export default function PickAndDropPoints() {
 
       {/* Drop-off Points */}
       <Text style={[styles.pointHeading, { marginTop: 22 }]}>
-        Drop-off Points
+        Dropping Points
       </Text>
 
-      {dropPoints.map((item) => (
+      {droppingPoints.map((item) => (
         <TouchableOpacity
           key={item.id}
           style={styles.pointRow}
-          onPress={() => setSelectedDrop(item.id)}
+          onPress={() => handleDroppingPointSelection(item)}
           activeOpacity={0.7}
         >
           {/* Radio */}
           <View style={styles.radioWrap}>
-            {selectedDrop === item.id ? (
+            {selectedDropping?.location === item.location ? (
               <Feather name="check-circle" size={20} color="#FF8C00" />
             ) : (
               <Feather name="circle" size={20} color="#999" />
@@ -92,8 +77,8 @@ export default function PickAndDropPoints() {
 
           {/* Text Info */}
           <View style={styles.pointTextArea}>
-            <Text style={styles.pointTitle}>{item.title}</Text>
-            <Text style={styles.pointSub}>{item.sub}</Text>
+            <Text style={styles.pointTitle}>{item.location}</Text>
+      
           </View>
 
              

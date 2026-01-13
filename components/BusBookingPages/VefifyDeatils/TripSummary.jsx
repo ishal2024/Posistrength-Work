@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 export default function TripSummary() {
 
-  const {busData ,routeData, selectedSeats} = useSelector((state) => state.booking)
+  const {busData ,routeData, selectedSeats , locations} = useSelector((state) => state.booking)
 
 
     const seats = selectedSeats.map((s) => s?.number)
@@ -44,13 +44,13 @@ export default function TripSummary() {
 
           <View style={styles.routeTextWrap}>
             <View style={styles.routeBlock}>
-              <Text style={styles.routeTitle}>{routeData?.departure} </Text>
-              <Text style={styles.routeTime}>Jun 15, 07:00 AM </Text>
+              <Text style={styles.routeTitle}>{locations?.pickupPoint?.location} </Text>
+              <Text style={styles.routeTime}>{locations?.pickupPoint?.time}</Text>
             </View>
 
             <View style={styles.routeBlock}>
-              <Text style={styles.routeTitle}>{routeData?.origin} </Text>
-              <Text style={styles.routeTime}>Jun 15, 11:30 AM </Text>
+              <Text style={styles.routeTitle}>{locations?.dropoffPoint?.location} </Text>
+              <Text style={styles.routeTime}>{locations?.dropoffPoint?.time} </Text>
             </View>
           </View>
         </View>

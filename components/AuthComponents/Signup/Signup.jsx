@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-
+  Image,
   KeyboardAvoidingView,
   Platform,
   StatusBar,
@@ -120,9 +120,9 @@ export const SignUpScreen = () => {
 
       if (response?.data?.status) {
         const user = {
-          status : true,
-          userData : response?.data?.user,
-          token : response?.data?.token
+          status: true,
+          userData: response?.data?.user,
+          token: response?.data?.token
         }
         await AsyncStorage.setItem('user', JSON.stringify(user))
         dispatch(addUserData(response?.data?.user))
@@ -160,11 +160,13 @@ export const SignUpScreen = () => {
 
           {/* Header Section */}
           <View style={styles.header}>
-            <View style={styles.logoCircle}>
-              <MaterialCommunityIcons name="bus-side" size={40} color="#FF5722" />
-            </View>
+            <Image
+              source={require('../../../assets/images/appLogo.png')}
+              style={styles.logoCircle}
+              resizeMode="cover"
+            />
             <Text style={styles.title}>Create Account</Text>
-            <Text style={styles.subtitle}>Join GoBus and start your journey today</Text>
+            <Text style={styles.subtitle}>Join Expressway and start your journey today `</Text>
           </View>
 
           {/* Form Section */}

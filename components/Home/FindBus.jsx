@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions , Image } from "react-native";
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { styles } from './FindBusStyleSheet'
@@ -15,7 +15,7 @@ const FindBus = () => {
     const router = useRouter()
     const dispatch = useDispatch()
     const { from, to, date } = useSelector((state) => state.search)
-    const {status} = useSelector((state) => state.user)
+    const { status } = useSelector((state) => state.user)
 
     // console.log("From Point " , from)
     // console.log("To Point " , to)
@@ -177,11 +177,16 @@ const FindBus = () => {
             {/* 1️⃣ Header Section */}
             <View style={styles.orangeHeader}>
                 <View style={styles.headerTopRow}>
-                    <Text style={styles.logoText}>Express<Text style={styles.logoBold}>Way </Text></Text>
+                    {/* <Text style={styles.logoText}>Express<Text style={styles.logoBold}>Way </Text></Text> */}
+                    <Image
+                        source={require('../../assets/images/appLogo.png')}
+                        style={styles.logo}
+                        resizeMode="cover"
+                    />
                     <TouchableOpacity style={styles.profileCircle} onPress={() => {
-                        if(status)
-                        router.push('/(account)/personalDetails')
-                        }}>
+                        if (status)
+                            router.push('/(account)/personalDetails')
+                    }}>
                         <Ionicons name="person" size={20} color="#FF5722" />
                     </TouchableOpacity>
                 </View>
