@@ -1,169 +1,169 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-//   seatContainer: {
-//   marginTop: 20,
-//   backgroundColor: '#f6f4f4ff',
-//   padding: 15,
-//   borderRadius: 12,
-//   elevation: 3,
-// },
+  //   seatContainer: {
+  //   marginTop: 20,
+  //   backgroundColor: '#f6f4f4ff',
+  //   padding: 15,
+  //   borderRadius: 12,
+  //   elevation: 3,
+  // },
 
 
-//   layoutHeader: {
-//     flexDirection: "row",
-//     justifyContent: "space-between",
-//     alignItems: "center",
-//     marginBottom: 30,
-//   },
+  //   layoutHeader: {
+  //     flexDirection: "row",
+  //     justifyContent: "space-between",
+  //     alignItems: "center",
+  //     marginBottom: 30,
+  //   },
 
 
 
 
-//   title: {
-//     fontSize: 20,
-//     fontWeight: "700",
+  //   title: {
+  //     fontSize: 20,
+  //     fontWeight: "700",
 
-//     color: "#222",
-//   },
+  //     color: "#222",
+  //   },
 
-//   busHeader: {
-//     flexDirection: "row",
-//     justifyContent: "space-between",
-//     marginBottom: 20,
-//     paddingHorizontal: 5
-//   },
+  //   busHeader: {
+  //     flexDirection: "row",
+  //     justifyContent: "space-between",
+  //     marginBottom: 20,
+  //     paddingHorizontal: 5
+  //   },
 
-//   deckSection: {
-//     flexDirection: "row",
-//     columnGap: 5,
-//   },
+  //   deckSection: {
+  //     flexDirection: "row",
+  //     columnGap: 5,
+  //   },
 
-//   deck: {
-//     paddingVertical: 4,
-//     paddingHorizontal: 6,
-//     borderRadius: 10,
-//     borderWidth: 1.2,
-//     borderColor: "#ccc",
-//     backgroundColor: "#fff",
-//   },
+  //   deck: {
+  //     paddingVertical: 4,
+  //     paddingHorizontal: 6,
+  //     borderRadius: 10,
+  //     borderWidth: 1.2,
+  //     borderColor: "#ccc",
+  //     backgroundColor: "#fff",
+  //   },
 
-//   activeDeck: {
-//     borderRadius: 10,
-//     borderWidth: 1.2,
-//     backgroundColor: "#FF8C00",  // Orange theme
-//     borderColor: "#FF8C00",
-//   },
+  //   activeDeck: {
+  //     borderRadius: 10,
+  //     borderWidth: 1.2,
+  //     backgroundColor: "#FF8C00",  // Orange theme
+  //     borderColor: "#FF8C00",
+  //   },
 
-//   deckText: {
-//     fontSize: 10,
-//     color: "#444",
-//     fontWeight: "600",
-//   },
+  //   deckText: {
+  //     fontSize: 10,
+  //     color: "#444",
+  //     fontWeight: "600",
+  //   },
 
-//   activeDeckText: {
-//     color: "#fff",
-//   },
+  //   activeDeckText: {
+  //     color: "#fff",
+  //   },
 
-//   // row: {
-//   //   flexDirection: "row",
-//   //   justifyContent: "space-between",
-//   //   marginBottom: 12,
-//   // },
+  //   // row: {
+  //   //   flexDirection: "row",
+  //   //   justifyContent: "space-between",
+  //   //   marginBottom: 12,
+  //   // },
 
-//   legendRow: {
-//     flexDirection: "row",
-//     justifyContent: "space-around",
-//     marginTop: 20,
-//   },
+  //   legendRow: {
+  //     flexDirection: "row",
+  //     justifyContent: "space-around",
+  //     marginTop: 20,
+  //   },
 
-//   legendItem: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//   },
+  //   legendItem: {
+  //     flexDirection: "row",
+  //     alignItems: "center",
+  //   },
 
-//   dot: {
-//     width: 14,
-//     height: 14,
-//     borderRadius: 10,
-//     marginRight: 6,
-//   },
+  //   dot: {
+  //     width: 14,
+  //     height: 14,
+  //     borderRadius: 10,
+  //     marginRight: 6,
+  //   },
 
-//   legendLabel: {
-//     fontSize: 14,
-//     color: "#555",
-//   },
+  //   legendLabel: {
+  //     fontSize: 14,
+  //     color: "#555",
+  //   },
 
-//   // Seat Layout Styles
+  //   // Seat Layout Styles
 
-//   deck: {
-//     padding: 10,
-//   },
+  //   deck: {
+  //     padding: 10,
+  //   },
 
-//   row: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     justifyContent: 'space-between',
-//     marginBottom: 14,
-//   },
+  //   row: {
+  //     flexDirection: 'row',
+  //     alignItems: 'center',
+  //     justifyContent: 'space-between',
+  //     marginBottom: 14,
+  //   },
 
-//   aisle: {
-//     width: 24,
-//   },
+  //   aisle: {
+  //     width: 24,
+  //   },
 
-//   /* LEFT – BIG SLEEPER */
-//   sleeperSeat: {
-//     width: 90,
-//     height: 44,
-//     backgroundColor: '#F5F5F5',
-//     borderRadius: 8,
-//     borderWidth: 1,
-//     borderColor: '#D0D0D0',
+  //   /* LEFT – BIG SLEEPER */
+  //   sleeperSeat: {
+  //     width: 90,
+  //     height: 44,
+  //     backgroundColor: '#F5F5F5',
+  //     borderRadius: 8,
+  //     borderWidth: 1,
+  //     borderColor: '#D0D0D0',
 
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     justifyContent: 'space-around',
-//   },
+  //     flexDirection: 'row',
+  //     alignItems: 'center',
+  //     justifyContent: 'space-around',
+  //   },
 
-//   /* RIGHT GROUP */
-//   rightGroup: {
-//     flexDirection: 'row',
-//     gap: 10,
-//   },
+  //   /* RIGHT GROUP */
+  //   rightGroup: {
+  //     flexDirection: 'row',
+  //     gap: 10,
+  //   },
 
-//   /* SEATER */
-//   seaterSeat: {
-//     width: 44,
-//     height: 44,
-//    backgroundColor: '#F5F5F5',
-// borderRadius: 8,
-// borderWidth: 1,
-// borderColor: '#D0D0D0',
+  //   /* SEATER */
+  //   seaterSeat: {
+  //     width: 44,
+  //     height: 44,
+  //    backgroundColor: '#F5F5F5',
+  // borderRadius: 8,
+  // borderWidth: 1,
+  // borderColor: '#D0D0D0',
 
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
+  //     alignItems: 'center',
+  //     justifyContent: 'center',
+  //   },
 
-//   /* RIGHT SIDE SLEEPER */
-//   sleeperSeatSmall: {
-//     width: 70,
-//     height: 44,
-//     backgroundColor: '#F5F5F5',
-//     borderRadius: 8,
-//     borderWidth: 1,
-//     borderColor: '#D0D0D0',
+  //   /* RIGHT SIDE SLEEPER */
+  //   sleeperSeatSmall: {
+  //     width: 70,
+  //     height: 44,
+  //     backgroundColor: '#F5F5F5',
+  //     borderRadius: 8,
+  //     borderWidth: 1,
+  //     borderColor: '#D0D0D0',
 
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     justifyContent: 'space-around',
-//   },
+  //     flexDirection: 'row',
+  //     alignItems: 'center',
+  //     justifyContent: 'space-around',
+  //   },
 
-//   seatText: {
-//     fontSize: 10,
-//     fontWeight: '600',
-//   },
+  //   seatText: {
+  //     fontSize: 10,
+  //     fontWeight: '600',
+  //   },
 
-mainContainer: {
+  mainContainer: {
     flex: 1,
     backgroundColor: '#FFFFFF',
     padding: 16,
@@ -280,30 +280,42 @@ mainContainer: {
   selectedSeatText: {
     color: '#FFFFFF',
   },
+
+  legendSection: {
+    padding: 16,
+    backgroundColor: '#FFFFFF',
+    borderTopWidth: 1,
+    borderTopColor: '#EEEEEE',
+    marginTop: 10,
+  },
   legendRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
-    paddingTop: 15,
-    borderTopWidth: 1,
-    borderTopColor: '#EEE',
+    justifyContent: 'space-between',
+    marginBottom: 12, // Space between the two rows
+    columnGap : 30
   },
   legendItem: {
+    flex: 1, // Ensures equal width for all 3 slots
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-start',
+   
   },
   legendDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 4,
-    marginRight: 6,
+    width: 14,
+    height: 14,
+    borderRadius: 3,
+    marginRight: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.1)',
   },
   legendLabel: {
     fontSize: 12,
-    color: '#666',
+    color: '#666666',
+    fontWeight: '500',
   },
 
-   row: {
+  row: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -336,7 +348,7 @@ mainContainer: {
   seaterContent: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding : 5
+    padding: 5
   },
   sleeperContent: {
     alignItems: 'center',
@@ -378,5 +390,59 @@ mainContainer: {
     borderTopRightRadius: 3,
     borderBottomRightRadius: 3,
     opacity: 0.5,
+
+    // Design for booked seat
+ bookedSeat: {
+    borderColor: '#D1D1D1', // Professional gray border
+    backgroundColor: '#F2F2F2', // Light gray fill
+    overflow: 'hidden', // Keeps diagonal lines inside the box
+    borderWidth: 1.5,
+  },
+  crossLine1: {
+    position: 'absolute',
+    width: '150%', // Extra width to ensure it covers diagonal corner-to-corner
+    height: 1,
+    backgroundColor: '#D1D1D1',
+    transform: [{ rotate: '45deg' }],
+  },
+  crossLine2: {
+    position: 'absolute',
+    width: '150%',
+    height: 1,
+    backgroundColor: '#D1D1D1',
+    transform: [{ rotate: '-45deg' }],
+  },
+  genderIconContainer: {
+    backgroundColor: '#F2F2F2', // Matches bookedSeat bg to clear lines behind icon
+    paddingHorizontal: 4,
+    borderRadius: 10,
+    zIndex: 2, // Ensures icon is above the cross lines
+  },
+  genderIcon: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color : "#4d4d4d"
+  },
+  // Added for Sleeper specific booked look
+  sleeperBase: {
+    flex: 2.2,
+    height: 50,
+    marginHorizontal: 4,
+  },
+  seaterBase: {
+    flex: 1,
+    aspectRatio: 1,
+    maxWidth: 55,
+    marginHorizontal: 4,
+  },
+  seatBase: {
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  }
+
+
   }
 });

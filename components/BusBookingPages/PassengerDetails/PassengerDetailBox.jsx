@@ -25,16 +25,19 @@ export default function PassengerDetailBox() {
       setOpenIndex([...openIndex, seatId])
   }
 
-function handlePassengerDetails(seatNumber, inputKey, inputValue) {
+function handlePassengerDetails(seat, inputKey, inputValue) {
   setPassengerDetails(prev => {
     const updatedState = {
       ...prev,
-      [seatNumber]: {
-        ...prev[seatNumber],
+      [seat?.number]: {
+        ...prev[seat?.number],
+        "gender" : seat?.gender ? seat?.gender : "",
         [inputKey]: inputValue,
-        "seatNumber" : seatNumber
+        "seatNumber" : seat?.number
       }
     };
+
+    console.log(updatedState)
 
     dispatch(addData({dataType : 'passengerDetails' , data : updatedState})); 
 
@@ -42,7 +45,7 @@ function handlePassengerDetails(seatNumber, inputKey, inputValue) {
   });
 }
 
-  console.log(passengerDetail)
+  console.log(selectedSeats)
 
   return (
     <View style={styles.container}>
@@ -90,7 +93,7 @@ function handlePassengerDetails(seatNumber, inputKey, inputValue) {
                   style={styles.input}
                   placeholder="Enter passenger name"
                   placeholderTextColor="#999"
-                  onChangeText={(text) => handlePassengerDetails(item?.number , "name" , text)}
+                  onChangeText={(text) => handlePassengerDetails(item , "name" , text)}
                 />
 
                 {/* Contact Number */}
@@ -109,7 +112,7 @@ function handlePassengerDetails(seatNumber, inputKey, inputValue) {
                   placeholder="Enter Contact  Number"
                   keyboardType="numeric"
                   placeholderTextColor="#6b6a6a"
-                  onChangeText={(text) => handlePassengerDetails(item?.number , "contact" , text)}
+                  onChangeText={(text) => handlePassengerDetails(item , "contact" , text)}
                 />
 
                 {/* Age + Gender Row */}
@@ -120,16 +123,16 @@ function handlePassengerDetails(seatNumber, inputKey, inputValue) {
                     placeholder="Enter Age"
                     keyboardType="numeric"
                     placeholderTextColor="#6b6a6a"
-                    onChangeText={(text) => handlePassengerDetails(item?.number , "age" , text)}
+                    onChangeText={(text) => handlePassengerDetails(item , "age" , text)}
                   />
 
                   <TextInput
-                  value={passengerDetail[item?.number]?.gender || ""}
+                  value={item?.gender ? item?.gender : passengerDetail[item?.number]?.gender || ""}
                     style={[styles.input, styles.smallInput]}
                     placeholder="Enter Gender"
                     placeholderTextColor="#6b6a6a"
-                    onChangeText={(text) => handlePassengerDetails(item?.number , "gender" , text)}
-                    
+                    onChangeText={(text) => handlePassengerDetails(item , "gender" , text)}
+                    editable = {item?.gender ? false : true}
                   />
                 </View>
                </View>
