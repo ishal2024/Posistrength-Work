@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions , Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-native";
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { styles } from './FindBusStyleSheet'
@@ -8,7 +8,7 @@ import { searchbus } from '../../axios/searchBus'
 import Spinner from "@/constants/Spinner/Spinner";
 import Toast from "react-native-toast-message";
 import { useDispatch, useSelector } from "react-redux";
-import { addDate } from "@/redux_store/FindBusSlicer";
+import { addDate, addFromPoint, addToPoint } from "@/redux_store/FindBusSlicer";
 
 const FindBus = () => {
 
@@ -17,9 +17,9 @@ const FindBus = () => {
     const { from, to, date } = useSelector((state) => state.search)
     const { status } = useSelector((state) => state.user)
 
-    console.log("From Point " , from)
-    console.log("To Point " , to)
-    console.log("Find Bus Component Re-Render")
+    // console.log("From Point " , from)
+    // console.log("To Point " , to)
+    // console.log("Find Bus Component Re-Render")
 
     const [boarding, setBoarding] = useState(from.length != 0 ? from : "")
     const [destination, setDestination] = useState(to.length != 0 ? to : "")
@@ -28,9 +28,11 @@ const FindBus = () => {
     const [inputDate, setInputDate] = useState(date.length != 0 ? date : null)
 
     function onReverse() {
-        const temp = boarding
-        setBoarding(destination)
-        setDestination(temp)
+        const temp = boarding;
+        dispatch(addFromPoint(destination))
+        dispatch(addToPoint(temp))
+        setBoarding(destination);
+        setDestination(temp);
     }
 
     function onClickToday() {
@@ -88,6 +90,15 @@ const FindBus = () => {
         router.push('/(search)/searchbus')
     }
 
+    function handleFromToChange() {
+        setBoarding(from.length != 0 ? from : boarding)
+        setDestination(to.length != 0 ? to : destination)
+    }
+
+    useEffect(() => {
+        handleFromToChange()
+    }, [from, to, date])
+
     return (
         <View style={styles.mainContainer}>
             {/* 1️⃣ Header Section */}
@@ -121,7 +132,7 @@ const FindBus = () => {
                             <View style={styles.textInputContainer}>
                                 <Text style={styles.inputLabel}>From</Text>
                                 <TextInput
-                                    value={from.length != 0 ? from : boarding}
+                                    value={boarding || ""}
                                     onPress={() => router.push({
                                         pathname: '/(search)/searchLocation', params: {
                                             locationType: "from",
@@ -153,7 +164,7 @@ const FindBus = () => {
                             <View style={styles.textInputContainer}>
                                 <Text style={styles.inputLabel}>To</Text>
                                 <TextInput
-                                    value={to.length != 0 ? to : destination}
+                                    value={destination || ""}
                                     onPress={() => router.push({
                                         pathname: '/(search)/searchLocation', params:
                                         {
