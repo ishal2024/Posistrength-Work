@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
+import { useSelector } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 
@@ -13,8 +14,10 @@ const STOPS_DATA = [
 ];
 
 const StopListSection = () => {
+  const {busData} = useSelector((state) => state?.booking)
   
   const renderItem = ({ item, index }) => {
+
 
     return (
       <View style={styles.stopWrapper}>
@@ -59,7 +62,7 @@ const StopListSection = () => {
       <Text style={styles.sectionTitle}>Stops List</Text>
       
       <FlatList
-        data={STOPS_DATA}
+        data={busData?.stops_list}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         scrollEnabled={false} // Usually nested in a ScrollView in Bus Detail Pages

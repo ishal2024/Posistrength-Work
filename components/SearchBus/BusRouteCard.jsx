@@ -71,7 +71,7 @@ const BusRouteCard = ({ cardData, routeDetail }) => {
         </View>
 
         <View style={styles.priceBox}>
-          <Text style={styles.price}>₹{cardData?.route.base_fare}</Text>
+          <Text style={styles.price}>₹{cardData?.bus?.bus_layout?.default_seater_price || cardData?.bus?.bus_layout?.default_sleeper_price }</Text>
           <Text style={styles.perSeat}>per seat </Text>
         </View>
       </View>

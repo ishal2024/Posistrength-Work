@@ -21,7 +21,7 @@ const VerifyDetails = () => {
             {/* Passenger Details Section */}
             <PassengerDetailSection />
         </ScrollView>
-        <FooterSection text={"Proceed to Payment"} onRouteChange={() => router.push('/(booking)/paymentSuccess')} />
+        <FooterSection text={"Payment"} onRouteChange={() => router.push('/(booking)/paymentSuccess')} />
     </SafeAreaView>
   )
 }

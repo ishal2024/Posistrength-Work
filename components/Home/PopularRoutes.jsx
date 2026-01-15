@@ -2,6 +2,9 @@ import { View, Text, Image, TouchableOpacity, FlatList, Dimensions, ScrollView }
 import React, { useEffect, useState } from "react";
 import { styles } from "./PopularRoutesStyleSheet";
 import { popularRoutes } from "@/axios/searchBus";
+import { useDispatch } from "react-redux";
+import { addFromPoint, addToPoint, addDate } from "@/redux_store/FindBusSlicer";
+import { useRouter } from "expo-router";
 
 
 const COLORS = {
@@ -19,6 +22,8 @@ export default function PopularRoutes() {
 
 
   const [popRoutes, setPopRoutes] = useState([])
+  const dispatch = useDispatch()
+  const router = useRouter()
 
   async function fetchPopularRoutes() {
     try {
@@ -28,6 +33,19 @@ export default function PopularRoutes() {
     } catch (error) {
       console.log(error?.message)
     }
+  }
+
+  function handleSeachPopularRouteBus(route) {
+    const date = new Date();
+    const formatted =
+      date.getDate().toString().padStart(2, "0") + "-" +
+      (date.getMonth() + 1).toString().padStart(2, "0") + "-" +
+      date.getFullYear();
+
+    dispatch(addFromPoint(route?.from_city))
+    dispatch(addToPoint(route?.to_city))
+    dispatch(addDate(formatted))
+    router.push('/(search)/searchbus')
   }
 
   useEffect(() => {
@@ -53,7 +71,9 @@ export default function PopularRoutes() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 16 }}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.routeCard}>
+            <TouchableOpacity 
+            onPress={() => handleSeachPopularRouteBus(item)}
+            style={styles.routeCard}>
               <Image source={{ uri: item?.image_url }} style={styles.routeImage} />
               <View style={styles.routeInfo}>
                 <Text style={styles.routeName}>{item?.route}</Text>

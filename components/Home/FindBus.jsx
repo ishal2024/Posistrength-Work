@@ -17,8 +17,9 @@ const FindBus = () => {
     const { from, to, date } = useSelector((state) => state.search)
     const { status } = useSelector((state) => state.user)
 
-    // console.log("From Point " , from)
-    // console.log("To Point " , to)
+    console.log("From Point " , from)
+    console.log("To Point " , to)
+    console.log("Find Bus Component Re-Render")
 
     const [boarding, setBoarding] = useState(from.length != 0 ? from : "")
     const [destination, setDestination] = useState(to.length != 0 ? to : "")
@@ -88,91 +89,6 @@ const FindBus = () => {
     }
 
     return (
-        // <View style={styles.card}>
-        //     {/* From */}
-        //     <TextInput
-        //         value={boarding || ""}
-        //         onPress={() => router.push({
-        //             pathname: '/(search)/searchLocation', params: {
-        //                 locationType: "from",
-        //                 // oldData: JSON.stringify(destination)
-        //             }
-        //         })}
-        //         placeholder="Boarding From"
-        //         placeholderTextColor="#9e9e9e"
-        //         onChangeText={text => setBoarding(text)}
-        //         style={styles.input}
-        //     />
-
-        //     {/* To */}
-        //     <TextInput
-        //         value={destination || ""}
-        //         onPress={() => router.push({
-        //             pathname: '/(search)/searchLocation', params:
-        //             {
-        //                 locationType: "to",
-        //                 // oldData: JSON.stringify(boarding)
-        //             }
-        //         })}
-        //         placeholder="Where are you going?"
-        //         placeholderTextColor="#9e9e9e"
-        //         onChangeText={text => setDestination(text)}
-        //         style={styles.input}
-        //     />
-
-        //     {/* Reverse Icon */}
-        //     <TouchableOpacity
-        //         style={styles.reverseBtn}
-        //         onPress={onReverse}
-        //     >
-        //         <Ionicons name="swap-vertical" size={22} color="orange" />
-        //     </TouchableOpacity>
-
-        //     {/* Date buttons */}
-        //     <View style={styles.dateRow}>
-        //         <TouchableOpacity
-        //             style={styles.dateBtn}
-        //             onPress={onClickToday}
-        //         >
-        //             <Text style={styles.dateText}>Today</Text>
-        //         </TouchableOpacity>
-
-        //         <TouchableOpacity
-        //             style={styles.dateBtn}
-        //             onPress={onClickTommorow}
-        //         >
-        //             <Text style={styles.dateText}>Tomorrow</Text>
-        //         </TouchableOpacity>
-
-        //         {/* Calendar Button */}
-        //         <TouchableOpacity
-        //             style={styles.dateBtn}
-        //             onPress={() => setShowCalender(true)}
-        //         >
-        //             {inputDate ? <Text style={styles.dateText}>{inputDate} </Text> : <Ionicons name="calendar" size={20} color="#fff" />}
-        //         </TouchableOpacity>
-        //     </View>
-
-        //     {/* Date Picker */}
-        //     {showCalender && (
-        //         <DateTimePicker
-        //             value={new Date()}
-        //             mode="date"
-        //             display="default"
-        //             onChange={onChangeCalender}
-        //         />
-        //     )}
-
-        //     {/* Find Bus */}
-        //     <TouchableOpacity
-        //         style={styles.findButton}
-        //         onPress={() => handleOnSearch()}
-        //     >
-        //         <Text style={styles.findButtonText}>Find Buses</Text>
-        //     </TouchableOpacity>
-
-        // </View>
-
         <View style={styles.mainContainer}>
             {/* 1️⃣ Header Section */}
             <View style={styles.orangeHeader}>
@@ -205,7 +121,7 @@ const FindBus = () => {
                             <View style={styles.textInputContainer}>
                                 <Text style={styles.inputLabel}>From</Text>
                                 <TextInput
-                                    value={boarding || ""}
+                                    value={from.length != 0 ? from : boarding}
                                     onPress={() => router.push({
                                         pathname: '/(search)/searchLocation', params: {
                                             locationType: "from",
@@ -237,7 +153,7 @@ const FindBus = () => {
                             <View style={styles.textInputContainer}>
                                 <Text style={styles.inputLabel}>To</Text>
                                 <TextInput
-                                    value={destination || ""}
+                                    value={to.length != 0 ? to : destination}
                                     onPress={() => router.push({
                                         pathname: '/(search)/searchLocation', params:
                                         {

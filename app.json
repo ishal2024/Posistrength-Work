@@ -4,7 +4,7 @@
     "slug": "express",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/appLogo.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "express",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
@@ -17,7 +17,7 @@
       "userInterfaceStyle": "light",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundColor": "#FF5722",
+        "backgroundColor": "#ffffff",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
@@ -38,7 +38,7 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
           "dark": {
-            "backgroundColor": "#ffffff"
+            "backgroundColor": "#000000"
           }
         }
       ],

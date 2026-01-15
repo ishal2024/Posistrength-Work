@@ -10,6 +10,7 @@ import LoginRequiredDialog from "../../../constants/Dialogs/LoginRequiredDialog"
 export default function FooterSection() {
   const router = useRouter()
   const [showLoginDialog, setShowLoginDialog] = useState(false);
+  const {busData} = useSelector((state) => state?.booking)
 
 
   const { status } = useSelector((state) => state.user)
@@ -33,7 +34,8 @@ export default function FooterSection() {
      {showLoginDialog &&  <LoginRequiredDialog onCancel = {setShowLoginDialog} />}
       {/* Price */}
       <View style={styles.priceBox}>
-        <Text style={styles.priceText}>₹45.00</Text>
+        <Text style={styles.priceText}>₹{busData?.bus?.bus_layout?.default_seater_price || 
+        busData?.bus?.bus_layout?.default_sleeper_price }</Text>
         <Text style={styles.perPerson}>per person</Text>
       </View>
 

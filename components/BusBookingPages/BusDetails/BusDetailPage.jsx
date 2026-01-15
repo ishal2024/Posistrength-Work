@@ -40,13 +40,6 @@ const BusDetailPage = () => {
      const [isBoardingAccorinOpen , setBoardingAccorinOpen] = useState(false)
      const [isDroppingAccorinOpen , setDroppingAccorinOpen] = useState(false)
 
-    const droppingPoints = [
-    { id: 34, location: "Nahariya Chauraha", time: "08:00 AM", city_id: 137 },
-    { id: 35, location: "Main Bus Stand Road", time: "08:20 AM", city_id: 137 },
-    { id: 36, location: "Railway Station Gate No. 2", time: "08:45 AM", city_id: 137 },
-    { id: 37, location: "City Center Square", time: "09:15 AM", city_id: 137 },
-  ];
-
   const toggleDroppingAccordion = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setDroppingAccorinOpen(!isDroppingAccorinOpen);
@@ -173,9 +166,9 @@ const BusDetailPage = () => {
           {/* Accordion Content */}
           {isBoardingAccorinOpen && (
             <View style={styles.accordcontent}>
-              {droppingPoints.map((item, index) => {
+              {busData?.boarding_points_list.map((item, index) => {
                 const isFirst = index === 0;
-                const isLast = index === droppingPoints?.length - 1;
+                const isLast = index === busData?.boarding_points_list.length - 1;
 
                 return (
                   <BusRouteCard
@@ -213,9 +206,9 @@ const BusDetailPage = () => {
           {/* Accordion Content */}
           {isDroppingAccorinOpen && (
             <View style={styles.accordcontent}>
-              {droppingPoints?.map((item, index) => {
+              {busData?.dropping_points_list?.map((item, index) => {
                 const isFirst = index === 0;
-                const isLast = index === droppingPoints.length - 1;
+                const isLast = index === busData?.dropping_points_list?.length - 1;
 
                 return (
                   <BusRouteCard
