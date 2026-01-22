@@ -23,9 +23,9 @@ export default function BusHeader() {
         <Text style={styles.title}>{busData?.bus?.name}</Text>
 
         <View style={styles.subRow}>
-          <Text style={styles.subText}>{busData?.bus?.bus_layout?.layout_name} </Text>
-          <Text style={styles.dot}> • </Text>
-          <Text style={styles.subText}>{busData?.route?.route_name} </Text>
+          <Text style={styles.subText}>{busData?.bus?.layout?.layout_name} </Text>
+          {/* <Text style={styles.dot}> • </Text>
+          <Text style={styles.subText}>{busData?.route?.route_name} </Text> */}
         </View>
       </View>
     </View>

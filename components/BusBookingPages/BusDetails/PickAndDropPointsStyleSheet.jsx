@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
+    gap : 8
   },
 
   radioWrap: {
@@ -25,7 +26,7 @@ export const styles = StyleSheet.create({
   },
 
   pointTextArea: {
-    flex: 1,
+    flex: 1, 
   },
 
   pointTitle: {
@@ -35,7 +36,7 @@ export const styles = StyleSheet.create({
   },
 
   pointSub: {
-    fontSize: 13,
+    fontSize: 10,
     color: "#666",
     marginTop: 2,
   },

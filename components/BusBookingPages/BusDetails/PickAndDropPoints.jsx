@@ -47,10 +47,11 @@ export default function PickAndDropPoints({boardingPoints , droppingPoints}) {
           {/* Text Info */}
           <View style={styles.pointTextArea}>
             <Text style={styles.pointTitle}>{item.location}</Text>
+            <Text style={styles.pointSub}>{item.landmark}</Text>
           </View>
 
           {/* Time */}
-          <Text style={styles.pointTime}>{item.time}</Text>
+          <Text style={styles.pointTime}>3000 min</Text>
         </TouchableOpacity>
       ))}
 
@@ -78,7 +79,7 @@ export default function PickAndDropPoints({boardingPoints , droppingPoints}) {
           {/* Text Info */}
           <View style={styles.pointTextArea}>
             <Text style={styles.pointTitle}>{item.location}</Text>
-      
+            <Text style={styles.pointSub}>{item.landmark}</Text>
           </View>
 
              

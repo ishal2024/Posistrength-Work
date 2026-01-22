@@ -34,7 +34,7 @@ export default function FooterSection() {
      {showLoginDialog &&  <LoginRequiredDialog onCancel = {setShowLoginDialog} />}
       {/* Price */}
       <View style={styles.priceBox}>
-        <Text style={styles.priceText}>₹{busData?.bus?.bus_layout?.default_seater_price || 
+        <Text style={styles.priceText}>₹{busData?.bus?.layout?.default_seater_price || 
         busData?.bus?.bus_layout?.default_sleeper_price }</Text>
         <Text style={styles.perPerson}>per person</Text>
       </View>

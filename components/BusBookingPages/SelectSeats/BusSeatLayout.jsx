@@ -12,7 +12,7 @@ export default function BusSeatLayout() {
 
   const [selectedSeat, setSelectedSeats] = useState(selectedSeats);
   const [activeDeck, setActiveDeck] = useState("lower_deck");
-  const [seatData, setSeatData] = useState(busData?.bus?.bus_layout?.lower_deck)
+  const [seatData, setSeatData] = useState(busData?.bus?.layout?.lower_deck)
 
 
   // console.log("SelectSeat Data", busData)
@@ -29,9 +29,9 @@ export default function BusSeatLayout() {
     } else {
 
       const prevSeat =
-        busData?.bus?.bus_layout?.[activeDeck]?.[rowIndex]?.[seatIndex - 1]?.number;
+        busData?.bus?.layout?.[activeDeck]?.[rowIndex]?.[seatIndex - 1]?.number;
       const nextSeat =
-        busData?.bus?.bus_layout?.[activeDeck]?.[rowIndex]?.[seatIndex + 1]?.number;
+        busData?.bus?.layout?.[activeDeck]?.[rowIndex]?.[seatIndex + 1]?.number;
       if (
         busData?.booked_seat_gender?.[prevSeat] === "female" ||
         busData?.booked_seat_gender?.[nextSeat] === "female"
@@ -60,9 +60,9 @@ export default function BusSeatLayout() {
 
   function getSeatColor(seat, seatIndex, rowIndex) {
     const prevSeat =
-      busData?.bus?.bus_layout?.[activeDeck]?.[rowIndex]?.[seatIndex - 1]?.number;
+      busData?.bus?.layout?.[activeDeck]?.[rowIndex]?.[seatIndex - 1]?.number;
     const nextSeat =
-      busData?.bus?.bus_layout?.[activeDeck]?.[rowIndex]?.[seatIndex + 1]?.number;
+      busData?.bus?.layout?.[activeDeck]?.[rowIndex]?.[seatIndex + 1]?.number;
 
     if (busData?.booked_seats?.includes(seat?.number)) return "#FF4A4A";
 
@@ -99,7 +99,7 @@ export default function BusSeatLayout() {
             style={[styles.deckTab, activeDeck === "lower_deck" && styles.activeDeckTab]}
             onPress={() => {
               setActiveDeck("lower_deck");
-              setSeatData(busData?.bus?.bus_layout?.lower_deck);
+              setSeatData(busData?.bus?.layout?.lower_deck);
             }}
           >
             <Text style={[styles.deckText, activeDeck === "lower_deck" && styles.activeDeckText]}>
@@ -111,7 +111,7 @@ export default function BusSeatLayout() {
             style={[styles.deckTab, activeDeck === "upper_deck" && styles.activeDeckTab]}
             onPress={() => {
               setActiveDeck("upper_deck");
-              setSeatData(busData?.bus?.bus_layout?.upper_deck);
+              setSeatData(busData?.bus?.layout?.has_upper_deck && busData?.bus?.layout?.upper_deck);
             }}
           >
             <Text style={[styles.deckText, activeDeck === "upper_deck" && styles.activeDeckText]}>

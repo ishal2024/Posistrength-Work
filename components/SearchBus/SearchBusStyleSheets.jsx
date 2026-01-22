@@ -123,21 +123,25 @@ filterSortText: {
     marginTop: 2,
   },
 
-  distanceBadge: {
+distanceBadge: {
   flexDirection: 'row',
   alignItems: 'center',
-  backgroundColor: '#EFF6FF',
-  paddingHorizontal: 12,
-  paddingVertical: 6,
-  borderRadius: 20,
+  backgroundColor: '#FFFFFF',
+  paddingHorizontal: 14,
+  paddingVertical: 7,
+  borderRadius: 999,
   gap: 6,
+
+  // borderWidth: 1,
+  // borderColor: '#E5E7EB',
 },
 
 distanceText: {
   fontSize: 13,
-  fontWeight: '600',
-  color: '#2563EB',
+  fontWeight: '700',
+  color: '#141414',
 },
+
 
   ratingBox: {
     flexDirection: 'row',
@@ -177,9 +181,24 @@ distanceText: {
   },
 
   durationBox: {
+    flexDirection : "row",
     alignItems: 'center',
     justifyContent: 'center',
     gap: 4,
+    width : '45%' 
+  },
+
+  estimatedTimeBox: {
+    flexDirection : "column",
+    alignItems: 'center',
+    justifyContent: 'center',
+    
+  },
+
+  horizontalLine : {
+     width : "30%",
+     borderWidth : 1,
+     borderColor : "#b8b8b8"
   },
 
   durationText: {
@@ -223,4 +242,5 @@ distanceText: {
     fontSize: 12,
     color: '#777',
   },
+
 });

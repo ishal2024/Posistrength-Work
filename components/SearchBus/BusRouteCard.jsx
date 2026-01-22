@@ -15,30 +15,31 @@ const BusRouteCard = ({ cardData, routeDetail }) => {
     <TouchableOpacity
       style={styles.busCard}
       onPress={() => {
-        dispatch(addData({dataType : 'selectedSeats' , data : []}))
-        dispatch(addData({dataType : 'passengerDetails' , data : {}}))
+        dispatch(addData({ dataType: 'selectedSeats', data: [] }))
+        dispatch(addData({ dataType: 'passengerDetails', data: {} }))
         router.push({
-        pathname: '/(booking)/busDetail', params: {
-          busDetail: JSON.stringify(cardData),
-          routeDetail: JSON.stringify(routeDetail)
-        }
-      })}}
+          pathname: '/(booking)/busDetail', params: {
+            busDetail: JSON.stringify(cardData),
+            routeDetail: JSON.stringify(routeDetail)
+          }
+        })
+      }}
     >
       {/* TOP ROW */}
       <View style={styles.topRow}>
         <View>
           <Text style={styles.busName}>{cardData?.bus?.name} </Text>
-          <Text style={styles.busSub}>{cardData?.bus_type}</Text>
+          <Text style={styles.busSub}>{cardData?.bus?.layout?.layout_name}</Text>
         </View>
 
         <TouchableOpacity style={styles.distanceBadge}>
           <MaterialCommunityIcons
-            name="map-marker-distance"
+            name="star"
             size={16}
-            color="#2563EB"
+            color="#FACC15"
           />
           <Text style={styles.distanceText}>
-            {cardData?.route?.distance} km
+            4.6
           </Text>
         </TouchableOpacity>
       </View>
@@ -46,18 +47,42 @@ const BusRouteCard = ({ cardData, routeDetail }) => {
       {/* TIME ROW */}
       <View style={styles.timeRow}>
         <View style={styles.cityBox}>
-          <Text style={styles.timeText}>{cardData?.departure_time.slice(0, 5)} </Text>
+          <Text style={styles.timeText}>{cardData?.departure_formatted} </Text>
           <Text style={styles.cityText}>{routeDetail?.departure} </Text>
         </View>
 
         <View style={styles.durationBox}>
-          <Ionicons name="time-outline" size={14} color="#777" />
-          <Text style={styles.durationText}>{cardData.route.estimated_time} </Text>
+          <View style={styles.horizontalLine}></View>
+          <View style={styles.estimatedTimeBox}>
+            <Ionicons name="time-outline" size={14} color="#777" />
+            {
+              (() => {
+                const depH = Number(cardData.departure_time.slice(0, 2));
+                const depM = Number(cardData.departure_time.slice(3, 5));
+                const arrH = Number(cardData.arrival_time.slice(0, 2));
+                const arrM = Number(cardData.arrival_time.slice(3, 5));
+
+                const depTotal = depH * 60 + depM;
+                const arrTotal = arrH * 60 + arrM + (arrH * 60 + arrM < depTotal ? 1440 : 0);
+
+                const diff = arrTotal - depTotal;
+                const h = Math.floor(diff / 60);
+                const m = diff % 60;
+                return (
+                  <Text style={styles.durationText}>{h}hr {m}m </Text>
+                );
+              })()
+            }
+
+          </View>
+          <View style={styles.horizontalLine}></View>
         </View>
 
         <View style={styles.cityBox}>
-          <Text style={styles.timeText}>{cardData.arrival_time.slice(0, 5)}</Text>
+
+          <Text style={styles.timeText}>{cardData.arrival_formatted}</Text>
           <Text style={styles.cityText}>{routeDetail.origin} </Text>
+
         </View>
       </View>
 
@@ -71,11 +96,13 @@ const BusRouteCard = ({ cardData, routeDetail }) => {
         </View>
 
         <View style={styles.priceBox}>
-          <Text style={styles.price}>₹{cardData?.bus?.bus_layout?.default_seater_price || cardData?.bus?.bus_layout?.default_sleeper_price }</Text>
+          <Text style={styles.price}>₹{cardData?.bus?.layout?.default_seater_price || cardData?.bus?.layout?.default_sleeper_price}</Text>
           <Text style={styles.perSeat}>per seat </Text>
         </View>
       </View>
     </TouchableOpacity>
+
+
   );
 };
 
